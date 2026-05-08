@@ -1,12 +1,16 @@
 :root {
-  --chalk: #f3efdc;
-  --chalk-heavy: #fff9e7;
-  --chalk-dim: rgba(243, 239, 220, 0.52);
-  --chalk-dust: rgba(243, 239, 220, 0.16);
-  --chalk-green: rgba(184, 202, 178, 0.7);
-  --board: #17211d;
-  --board-dark: #101612;
-  --board-line: rgba(243, 239, 220, 0.12);
+  --chalk: #f5f5f0;
+  --chalk-heavy: #fffdf2;
+  --chalk-dim: rgba(245, 245, 240, 0.64);
+  --chalk-dust: rgba(245, 245, 240, 0.16);
+  --chalk-blue: #7ec8e3;
+  --chalk-green: #8fce00;
+  --chalk-amber: #f4d58d;
+  --chalk-purple: #c297ff;
+  --chalk-red: #ff6b6b;
+  --board: #1a1a1a;
+  --board-dark: #111111;
+  --board-line: rgba(245, 245, 240, 0.12);
 }
 
 * {
@@ -1028,4 +1032,2039 @@ body {
 
 .chalk-emotion-face--sad {
   opacity: 0.82;
+}
+
+.episode-cold-open {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+  transform-origin: 50% 50%;
+  overflow: visible;
+}
+
+.episode-cold-open section,
+.episode-cold-open__hook,
+.episode-cold-open__cards {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.episode-cold-open__watermark {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(243, 239, 220, 0.46);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.episode-cold-open__watermark img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: url("#chalk-rough-line");
+}
+
+.episode-cold-open__question {
+  position: absolute;
+  left: 210px;
+  top: 142px;
+  width: 820px;
+  font-size: 106px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.episode-cold-open-v2__question {
+  left: 172px;
+  top: 118px;
+  width: 880px;
+  font-size: 112px;
+}
+
+.episode-cold-open-v2__magic-circle {
+  position: absolute;
+  left: 530px;
+  top: 95px;
+  width: 420px;
+  height: 180px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.episode-cold-open-v2__cards {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.episode-cold-open__no {
+  position: absolute;
+  left: 695px;
+  top: 340px;
+  width: 540px;
+  color: var(--chalk-heavy);
+  font-size: 212px;
+  font-weight: 800;
+  line-height: 1;
+  overflow: visible;
+  text-align: center;
+}
+
+.episode-cold-open-v2__no {
+  left: 660px;
+  top: 330px;
+  width: 600px;
+  font-size: 230px;
+  text-shadow:
+    2px 1px rgba(255, 255, 255, 0.12),
+    -1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.episode-cold-open__wizard-hat {
+  position: absolute;
+  width: 150px;
+  height: 118px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.episode-cold-open__wizard-hat svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.episode-cold-open-v2__wizard-hat {
+  width: 126px;
+  height: 102px;
+}
+
+.episode-cold-open__not-magic-title,
+.episode-cold-open__autocomplete-title,
+.episode-cold-open__surprising-title {
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 226px;
+  font-size: 78px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.episode-cold-open-v2__teaching-title {
+  top: 200px;
+  font-size: 82px;
+}
+
+.episode-cold-open-v2__not-magic .chalk-quick-note {
+  min-height: 58px;
+}
+
+.episode-cold-open-v2__not-magic .chalk-quick-note__mark {
+  width: 46px;
+  height: 40px;
+  margin-right: 12px;
+}
+
+.episode-cold-open-v2__not-magic .chalk-quick-note__text {
+  font-size: 31px;
+  line-height: 1.2;
+}
+
+.episode-cold-open__tiny-person {
+  position: absolute;
+  left: 1140px;
+  top: 420px;
+  width: 260px;
+  height: 260px;
+  opacity: 0.72;
+}
+
+.episode-cold-open__tiny-person svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.episode-cold-open__unknown-notes {
+  position: absolute;
+  left: 395px;
+  top: 720px;
+  width: 430px;
+  color: var(--chalk-dim);
+  font-size: 40px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.episode-cold-open-v2__unknown-notes {
+  left: 368px;
+  top: 704px;
+  width: 420px;
+}
+
+.episode-cold-open__final-logo {
+  position: absolute;
+  left: 760px;
+  top: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 400px;
+  color: rgba(243, 239, 220, 0.82);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 54px;
+  font-weight: 700;
+}
+
+.episode-cold-open__final-logo img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  opacity: 0.76;
+  filter: url("#chalk-rough-line");
+}
+
+.episode-cold-open-v2__final-logo {
+  top: 232px;
+  color: rgba(243, 239, 220, 0.88);
+}
+
+.episode-cold-open__final-line {
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 432px;
+  font-size: 88px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.episode-cold-open-v2__final .episode-cold-open__final-line {
+  top: 420px;
+  font-size: 92px;
+}
+
+.episode-cold-open-v2__final .episode-cold-open__final-subtitle {
+  top: 582px;
+}
+
+.episode-cold-open-v2__final-rule {
+  position: absolute;
+  left: 600px;
+  top: 692px;
+  width: 720px;
+  height: 34px;
+  overflow: visible;
+}
+
+.episode-cold-open__final-subtitle {
+  position: absolute;
+  left: 300px;
+  right: 300px;
+  top: 590px;
+  color: var(--chalk-dim);
+  font-size: 44px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.chalk-tiny-machine,
+.chalk-brain-icon {
+  position: absolute;
+  width: 340px;
+  height: 280px;
+  overflow: visible;
+  pointer-events: none;
+  opacity: 0.82;
+}
+
+.chalk-tiny-machine svg,
+.chalk-brain-icon svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-example-card {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+}
+
+.chalk-example-card svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-example-card__label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 0 22px;
+  overflow: visible;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.16;
+  text-align: center;
+}
+
+.chalk-example-card__label .chalk-text__spacer,
+.chalk-example-card__label .chalk-text__powder,
+.chalk-example-card__label .chalk-text__written {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.chalk-quick-note {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  min-height: 70px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.chalk-quick-note__mark {
+  width: 58px;
+  height: 48px;
+  margin-right: 18px;
+  overflow: visible;
+  flex: 0 0 auto;
+}
+
+.chalk-quick-note__text {
+  font-size: 44px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.chalk-autocomplete-line {
+  position: absolute;
+  width: 720px;
+  font-size: 46px;
+  font-weight: 700;
+  overflow: visible;
+  white-space: nowrap;
+}
+
+.chalk-autocomplete-line__ghost {
+  display: inline-block;
+  margin-left: 22px;
+  color: var(--chalk-dim);
+  opacity: 0.74;
+}
+
+.chalk-output-card {
+  position: absolute;
+  width: 390px;
+  height: 190px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.chalk-output-card__ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-output-card .chalk-example-card__label {
+  align-items: start;
+  padding-top: 28px;
+  font-size: 32px;
+}
+
+.chalk-magnifier {
+  position: absolute;
+  width: 260px;
+  height: 220px;
+  overflow: visible;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+}
+
+.chalk-magnifier svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-mystery-model {
+  position: absolute;
+  width: 620px;
+  height: 300px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.chalk-mystery-model svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-mystery-model__label {
+  position: absolute;
+  left: 236px;
+  top: 58px;
+  width: 160px;
+  font-size: 36px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.cold-open-caption {
+  position: absolute;
+  left: 220px;
+  right: 220px;
+  bottom: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.cold-open-caption__rule {
+  width: 760px;
+  height: 22px;
+}
+
+.cold-open-caption__rule path {
+  fill: none;
+  stroke: var(--chalk-green);
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: url("#chalk-rough-line");
+}
+
+.cold-open-caption p {
+  width: 100%;
+  margin: 0;
+  color: var(--chalk);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 34px;
+  font-weight: 650;
+  line-height: 1.34;
+  text-align: center;
+  text-shadow:
+    1px 0 rgba(255, 255, 255, 0.08),
+    0 1px rgba(0, 0, 0, 0.3);
+}
+
+.c4-scene-shell {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+  overflow: visible;
+  transform-origin: 50% 50%;
+}
+
+.c4-scene-zone {
+  position: absolute;
+  overflow: visible;
+}
+
+.c4-scene--centered-teaching,
+.c4-scene--left-right,
+.c4-scene--hook-chaos,
+.c4-scene--simple-diagram,
+.c4-scene--warning,
+.c4-scene--quote-thesis,
+.c4-scene--roadmap {
+  overflow: visible;
+}
+
+.c4-character-rig,
+.c4-wizard-hat-prop,
+.c4-bucket-prop,
+.c4-thought-icon,
+.c4-warning-label {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.c4-character-rig {
+  width: 260px;
+  height: 240px;
+}
+
+.c4-character-rig__motion-lines {
+  position: absolute;
+  left: -86px;
+  top: 42px;
+  width: 260px;
+  height: 180px;
+  overflow: visible;
+}
+
+.c4-wizard-hat-prop {
+  width: 150px;
+  height: 118px;
+  transform-origin: 50% 70%;
+}
+
+.c4-wizard-hat-prop svg,
+.c4-bucket-prop svg,
+.c4-thought-icon svg,
+.c4-warning-label svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-bucket-prop {
+  width: 260px;
+  height: 220px;
+  transform-origin: 50% 60%;
+}
+
+.c4-thought-icon {
+  width: 280px;
+  height: 220px;
+}
+
+.c4-thought-icon__text {
+  position: absolute;
+  left: 62px;
+  top: 72px;
+  width: 140px;
+  font-size: 34px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.c4-warning-label {
+  width: 420px;
+  height: 120px;
+}
+
+.c4-warning-label__text {
+  position: absolute;
+  left: 34px;
+  right: 34px;
+  top: 32px;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.18;
+  text-align: center;
+}
+
+.c4-animatic-watermark {
+  position: absolute;
+  left: 1560px;
+  top: 100px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(243, 239, 220, 0.46);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  z-index: 20;
+}
+
+.c4-animatic-watermark img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  opacity: 0.52;
+  filter: url("#chalk-rough-line");
+}
+
+.c4-animatic-title {
+  font-size: 92px;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.c4-animatic-no {
+  position: absolute;
+  left: 650px;
+  top: 310px;
+  width: 620px;
+  color: var(--chalk-heavy);
+  font-size: 246px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}
+
+.c4-animatic-laptop {
+  position: absolute;
+  left: 724px;
+  top: 420px;
+  width: 420px;
+  height: 260px;
+  overflow: visible;
+  opacity: 0.52;
+}
+
+.c4-animatic-laptop svg,
+.c4-animatic-coffee {
+  position: absolute;
+  overflow: visible;
+}
+
+.c4-animatic-laptop svg {
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c4-animatic-coffee {
+  left: 1460px;
+  top: 260px;
+  width: 260px;
+  height: 170px;
+  opacity: 0.62;
+}
+
+.c4-animatic-magic-correction {
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 188px;
+  font-size: 104px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.c4-animatic-correction-note,
+.c4-animatic-autocomplete-note {
+  position: absolute;
+  color: var(--chalk-dim);
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.c4-animatic-correction-note {
+  left: 260px;
+  right: 260px;
+  top: 808px;
+}
+
+.c4-animatic-autocomplete-note {
+  left: 500px;
+  right: 500px;
+  top: 816px;
+}
+
+.c4-animatic-thesis-small {
+  position: absolute;
+  left: 500px;
+  top: 620px;
+  width: 920px;
+  font-size: 68px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.c4-animatic-quote {
+  display: block;
+  width: 100%;
+  font-size: 126px;
+  font-weight: 800;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.c4-animatic-quote-support {
+  display: block;
+  margin-top: 44px;
+  color: var(--chalk-dim);
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.c4-animatic-diagram-ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-animatic-diagram-label {
+  position: absolute;
+  font-size: 52px;
+  font-weight: 800;
+  text-align: center;
+  overflow: visible;
+}
+
+.c4-animatic-diagram-label--input {
+  left: 330px;
+  top: 506px;
+  width: 240px;
+}
+
+.c4-animatic-diagram-label--model {
+  left: 870px;
+  top: 512px;
+  width: 250px;
+}
+
+.c4-animatic-diagram-label--output {
+  left: 1420px;
+  top: 506px;
+  width: 240px;
+}
+
+.c4-animatic-diagram-label--data {
+  left: 290px;
+  top: 448px;
+  width: 240px;
+}
+
+.c4-animatic-diagram-label--patterns {
+  left: 848px;
+  top: 448px;
+  width: 260px;
+}
+
+.c4-animatic-diagram-label--useful-output {
+  left: 1392px;
+  top: 448px;
+  width: 290px;
+  font-size: 46px;
+}
+
+.c4-animatic-diagram-note {
+  position: absolute;
+  left: 600px;
+  top: 708px;
+  width: 720px;
+  color: var(--chalk-dim);
+  font-size: 52px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.c4-animatic-diagram-note--teaching {
+  left: 430px;
+  top: 574px;
+  width: 1060px;
+  font-size: 42px;
+}
+
+.c4-animatic-overwhelm-scene {
+  overflow: visible;
+}
+
+.c4-animatic-overwhelm-subtitle {
+  position: absolute;
+  left: 430px;
+  right: 430px;
+  top: 230px;
+  color: var(--chalk-dim);
+  font-size: 42px;
+  font-weight: 800;
+  line-height: 1.18;
+  text-align: center;
+}
+
+.c4-animatic-capability-card {
+  position: absolute;
+  height: 118px;
+  overflow: visible;
+  transform-origin: 50% 52%;
+  will-change: transform, opacity;
+}
+
+.c4-animatic-capability-card svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-animatic-capability-card__label {
+  position: absolute;
+  left: 82px;
+  top: 38px;
+  width: calc(100% - 96px);
+  font-size: 26px;
+  font-weight: 850;
+  line-height: 1.08;
+  text-align: left;
+}
+
+.c4-animatic-capability-card__label .chalk-text__spacer,
+.c4-animatic-capability-card__label .chalk-text__powder,
+.c4-animatic-capability-card__label .chalk-text__written {
+  display: block;
+}
+
+.c4-animatic-overwhelm-chart {
+  position: absolute;
+  left: 1010px;
+  top: 596px;
+  width: 320px;
+  height: 220px;
+  overflow: visible;
+  opacity: 0.68;
+}
+
+.c4-animatic-overwhelm-stress {
+  position: absolute;
+  left: 690px;
+  top: 352px;
+  width: 540px;
+  height: 360px;
+  overflow: visible;
+}
+
+.c4-animatic-overwhelm-thought {
+  position: absolute;
+  left: 1218px;
+  top: 244px;
+  width: 500px;
+  height: 260px;
+  overflow: visible;
+  z-index: 10;
+}
+
+.c4-animatic-overwhelm-thought svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-animatic-overwhelm-thought__text {
+  position: absolute;
+  left: 68px;
+  top: 72px;
+  width: 278px;
+  font-size: 35px;
+  font-weight: 850;
+  line-height: 1.16;
+  text-align: center;
+}
+
+.c4-animatic-reset-small {
+  position: absolute;
+  left: 420px;
+  right: 420px;
+  top: 244px;
+  color: var(--chalk-dim);
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.c4-animatic-reset-question {
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 356px;
+  font-size: 102px;
+  font-weight: 900;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.c4-animatic-reset-note {
+  position: absolute;
+  left: 430px;
+  right: 430px;
+  top: 640px;
+  color: var(--chalk-dim);
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1.16;
+  text-align: center;
+}
+
+.c4-animatic-checklist {
+  position: absolute;
+  left: 754px;
+  top: 578px;
+  width: 520px;
+  height: 250px;
+  overflow: visible;
+}
+
+.c4-animatic-checklist svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-animatic-checklist__line {
+  position: absolute;
+  left: 58px;
+  right: 42px;
+  font-size: 38px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.c4-line-1 {
+  top: 50px;
+}
+
+.c4-line-2 {
+  top: 106px;
+}
+
+.c4-line-3 {
+  top: 162px;
+  color: var(--chalk-green);
+}
+
+.c4-animatic-final-logo {
+  position: absolute;
+  left: 760px;
+  top: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  width: 400px;
+  color: rgba(243, 239, 220, 0.88);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 54px;
+  font-weight: 700;
+}
+
+.c4-animatic-final-logo img {
+  width: 92px;
+  height: 92px;
+  object-fit: contain;
+  opacity: 0.78;
+  filter: url("#chalk-rough-line");
+}
+
+.c4-animatic-final-title {
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 390px;
+  font-size: 92px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.c4-animatic-final-subtitle {
+  position: absolute;
+  left: 360px;
+  right: 360px;
+  top: 516px;
+  color: var(--chalk-dim);
+  font-size: 48px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.c4-animatic-roadmap {
+  position: absolute;
+  left: 300px;
+  top: 588px;
+  display: grid;
+  grid-template-columns: repeat(3, 360px);
+  gap: 90px;
+}
+
+.c4-animatic-roadmap--five {
+  left: 170px;
+  top: 642px;
+  grid-template-columns: repeat(5, 286px);
+  gap: 34px;
+}
+
+.c4-animatic-roadmap__item {
+  position: relative;
+  width: 360px;
+  height: 148px;
+  overflow: visible;
+}
+
+.c4-animatic-roadmap__item--compact {
+  width: 286px;
+  height: 150px;
+}
+
+.c4-animatic-roadmap__item svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-animatic-roadmap__number {
+  position: absolute;
+  left: 32px;
+  top: 42px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--chalk-heavy);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 34px;
+  font-weight: 900;
+  line-height: 42px;
+  text-align: center;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.08);
+}
+
+.c4-animatic-roadmap__label {
+  position: absolute;
+  left: 90px;
+  top: 38px;
+  width: 230px;
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.12;
+}
+
+.c4-animatic-roadmap__item--compact .c4-animatic-roadmap__number {
+  left: 26px;
+  top: 44px;
+  font-size: 30px;
+}
+
+.c4-animatic-roadmap__item--compact .c4-animatic-roadmap__label {
+  left: 76px;
+  top: 38px;
+  width: 176px;
+  font-size: 28px;
+  line-height: 1.12;
+}
+
+.c4-animatic-label {
+  position: absolute;
+  left: 120px;
+  bottom: 38px;
+  color: rgba(243, 239, 220, 0.32);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.c4-ds-mascot {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.c4-ds-mascot__gesture {
+  position: absolute;
+  width: 112px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(244, 240, 220, 0.72);
+  filter: url("#chalk-rough-line");
+  transform-origin: 0 50%;
+}
+
+.c4-ds-mascot__stress {
+  position: absolute;
+  width: 72px;
+  color: var(--chalk-heavy);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 58px;
+  font-weight: 900;
+  text-align: center;
+  filter: url("#chalk-rough-text");
+}
+
+.c4-ds-mascot__held-prop {
+  position: absolute;
+  width: 170px;
+  height: 130px;
+  overflow: visible;
+}
+
+.c4-ds-prop,
+.c4-ds-prop-label {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.c4-ds-prop svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-ds-prop--laptop {
+  width: 420px;
+  height: 260px;
+  transform-origin: 50% 55%;
+}
+
+.c4-ds-prop--eraser {
+  width: 260px;
+  height: 150px;
+  transform-origin: 50% 50%;
+}
+
+.c4-ds-prop-label {
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+}
+
+.c4-ds-scene {
+  overflow: visible;
+}
+
+.c4-ds-scene-title {
+  position: absolute;
+  left: 150px;
+  right: 150px;
+  top: 106px;
+  font-size: 82px;
+  font-weight: 850;
+  line-height: 1.12;
+  text-align: center;
+}
+
+.c4-ds-small-note {
+  position: absolute;
+  left: 520px;
+  right: 520px;
+  top: 720px;
+  color: var(--chalk-dim);
+  font-size: 42px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.c4-ds-reset-title {
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 390px;
+  font-size: 96px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.c4-ds-scene-ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-ds-diagram-label {
+  position: absolute;
+  width: 260px;
+  font-size: 46px;
+  font-weight: 850;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.c4-ds-diagram-label--one {
+  left: 290px;
+  top: 505px;
+}
+
+.c4-ds-diagram-label--two {
+  left: 854px;
+  top: 505px;
+}
+
+.c4-ds-diagram-label--three {
+  left: 1415px;
+  top: 505px;
+  font-size: 38px;
+}
+
+.c4-ds-roadmap-row {
+  position: absolute;
+  left: 178px;
+  top: 580px;
+  width: 1540px;
+  height: 130px;
+  overflow: visible;
+}
+
+.c4-ds-outro-title {
+  position: absolute;
+  left: 320px;
+  right: 320px;
+  top: 310px;
+  font-size: 108px;
+  font-weight: 900;
+  text-align: center;
+}
+
+.c4-ds-outro-subtitle {
+  position: absolute;
+  left: 360px;
+  right: 360px;
+  top: 492px;
+  color: var(--chalk-dim);
+  font-size: 46px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.c4-ds-preview-watermark {
+  position: absolute;
+  right: 104px;
+  top: 64px;
+  z-index: 50;
+  color: rgba(243, 239, 220, 0.36);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 22px;
+  font-weight: 650;
+}
+
+.c4-ds-preview-panel {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.c4-ds-preview-title {
+  position: absolute;
+  left: 120px;
+  right: 120px;
+  top: 96px;
+  font-size: 78px;
+  font-weight: 900;
+  line-height: 1.12;
+  text-align: center;
+}
+
+.c4-ds-preview-pose-row {
+  position: absolute;
+  left: 130px;
+  right: 130px;
+  top: 320px;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 26px;
+}
+
+.c4-ds-preview-pose {
+  position: relative;
+  height: 360px;
+  overflow: visible;
+  border-bottom: 3px solid rgba(244, 240, 220, 0.24);
+}
+
+.c4-ds-preview-pose span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -58px;
+  color: var(--chalk-dim);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 750;
+  text-align: center;
+}
+
+.c4-ds-preview-scene-grid {
+  position: absolute;
+  left: 168px;
+  top: 280px;
+  display: grid;
+  grid-template-columns: repeat(4, 360px);
+  gap: 34px 54px;
+}
+
+.c4-ds-preview-scene-card {
+  position: relative;
+  width: 360px;
+  height: 118px;
+  display: grid;
+  place-items: center;
+  overflow: visible;
+  font-size: 27px;
+  font-weight: 850;
+  line-height: 1.08;
+  text-align: center;
+}
+
+.c4-ds-preview-scene-card svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-ds-preview-grammar-row {
+  position: absolute;
+  left: 220px;
+  right: 220px;
+  top: 334px;
+  display: grid;
+  grid-template-columns: 330px 420px 260px 360px;
+  align-items: center;
+  gap: 54px;
+  min-height: 260px;
+  font-size: 44px;
+  font-weight: 850;
+}
+
+.c4-ds-preview-grammar-row > div,
+.c4-ds-preview-grammar-row svg {
+  position: relative;
+  min-height: 210px;
+  overflow: visible;
+}
+
+.c4-ds-preview-reset-demo,
+.c4-ds-preview-calm-demo {
+  position: absolute;
+  left: 660px;
+  top: 720px;
+  width: 600px;
+  font-size: 58px;
+  font-weight: 900;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.c4-ds-mascot {
+  transform-origin: 50% 58%;
+}
+
+.c4-ds-mascot__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-ds-icon-symbol {
+  overflow: visible;
+}
+
+.c4-ds-card-prop__icon .c4-ds-icon-symbol {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.c4-ds-card-prop {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+  transform-origin: 50% 50%;
+}
+
+.c4-ds-card-prop__ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.c4-ds-card-prop__icon {
+  position: absolute;
+  left: 17px;
+  top: 20px;
+  width: 45px;
+  height: 45px;
+  overflow: visible;
+}
+
+.c4-ds-card-prop__label {
+  position: absolute;
+  left: 70px;
+  right: 18px;
+  top: 24px;
+  color: var(--chalk);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 750;
+  line-height: 1.1;
+  text-shadow:
+    1px 0 rgba(255, 255, 255, 0.08),
+    0 1px rgba(0, 0, 0, 0.28);
+}
+
+.c4-ds-prop--wand,
+.c4-ds-prop--saucepan,
+.c4-ds-prop--bucket,
+.c4-ds-prop--laptop,
+.c4-ds-prop--magnifyingGlass,
+.c4-ds-prop--warningIcon,
+.c4-ds-prop--checklist,
+.c4-ds-prop--eraser,
+.c4-ds-prop--poof,
+.c4-ds-prop--spark,
+.c4-ds-prop--burst {
+  transform-origin: 50% 50%;
+}
+
+.c4-ds-eraser-wipe {
+  position: absolute;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.c4-ds-eraser-wipe__clear {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: var(--board);
+}
+
+.c4-ds-eraser-wipe__smear {
+  position: absolute;
+  top: 8%;
+  width: 270px;
+  height: 84%;
+  background: rgba(245, 245, 240, 0.045);
+  filter: blur(10px);
+  opacity: 0.48;
+}
+
+.c4-ds-v2 {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+  overflow: visible;
+}
+
+.c4-ds-v2-panel {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.c4-ds-v2-kicker {
+  position: absolute;
+  left: 126px;
+  top: 70px;
+  color: var(--chalk-blue);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 23px;
+  font-weight: 750;
+  letter-spacing: 0;
+  opacity: 0.76;
+}
+
+.c4-ds-v2-title {
+  position: absolute;
+  left: 120px;
+  right: 120px;
+  top: 96px;
+  color: var(--chalk);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 62px;
+  font-weight: 850;
+  line-height: 1.08;
+  text-align: center;
+  filter: url("#chalk-rough-text");
+}
+
+.c4-ds-v2-subtitle {
+  position: absolute;
+  left: 260px;
+  right: 260px;
+  top: 232px;
+  color: var(--chalk-dim);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 650;
+  line-height: 1.26;
+  text-align: center;
+}
+
+.c4-ds-v2-watermark {
+  position: absolute;
+  right: 104px;
+  top: 64px;
+  z-index: 60;
+  color: rgba(245, 245, 240, 0.36);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 21px;
+  font-weight: 650;
+}
+
+.c4-ds-v2-board-card {
+  position: absolute;
+  border: 2px solid rgba(245, 245, 240, 0.13);
+  border-radius: 8px;
+  background: rgba(42, 42, 42, 0.22);
+  box-shadow: inset 0 0 0 1px rgba(245, 245, 240, 0.025);
+}
+
+.c4-ds-v2-board-card__label {
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  color: rgba(245, 245, 240, 0.7);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.c4-ds-v2-pose-stage {
+  position: absolute;
+  left: 116px;
+  right: 116px;
+  top: 294px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 24px;
+}
+
+.c4-ds-v2-pose-tile {
+  position: relative;
+  height: 310px;
+  border-bottom: 3px solid rgba(245, 245, 240, 0.2);
+}
+
+.c4-ds-v2-pose-tile span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -48px;
+  color: rgba(245, 245, 240, 0.62);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 21px;
+  font-weight: 720;
+  text-align: center;
+}
+
+.c4-ds-v2-prop-grid {
+  position: absolute;
+  left: 130px;
+  right: 130px;
+  top: 292px;
+  display: grid;
+  grid-template-columns: 320px 320px 320px 320px 320px;
+  gap: 28px 42px;
+}
+
+.c4-ds-v2-prop-tile {
+  position: relative;
+  height: 170px;
+  border: 1.5px solid rgba(245, 245, 240, 0.1);
+  border-radius: 8px;
+  background: rgba(42, 42, 42, 0.16);
+}
+
+.c4-ds-v2-prop-tile-label {
+  position: absolute;
+  left: 22px;
+  bottom: 18px;
+  color: rgba(245, 245, 240, 0.66);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.c4-ds-v2-scene-grid {
+  position: absolute;
+  left: 116px;
+  right: 116px;
+  top: 286px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+
+.c4-ds-v2-scene-thumb {
+  position: relative;
+  height: 236px;
+  overflow: hidden;
+  border: 2px solid rgba(245, 245, 240, 0.12);
+  border-radius: 8px;
+  background: #1a1a1a;
+}
+
+.c4-ds-v2-scene-thumb-title {
+  position: absolute;
+  left: 18px;
+  top: 14px;
+  color: rgba(245, 245, 240, 0.8);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 760;
+}
+
+.c4-ds-v2-layout-guide {
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed rgba(126, 200, 227, 0.22);
+}
+
+.c4-ds-v2-grammar-row {
+  position: absolute;
+  left: 134px;
+  right: 134px;
+  top: 310px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 34px;
+}
+
+.c4-ds-v2-grammar-tile {
+  position: relative;
+  height: 260px;
+  overflow: visible;
+  border: 2px solid rgba(245, 245, 240, 0.12);
+  border-radius: 8px;
+  background: rgba(42, 42, 42, 0.14);
+}
+
+.c4-ds-v2-grammar-label {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  color: rgba(245, 245, 240, 0.68);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 21px;
+  font-weight: 750;
+}
+
+.c4-ds-v2-overwhelm-stage {
+  position: absolute;
+  left: 122px;
+  right: 122px;
+  top: 286px;
+  height: 570px;
+  overflow: visible;
+}
+
+.c4-ds-v2-reset-word {
+  position: absolute;
+  left: 530px;
+  top: 310px;
+  width: 860px;
+  color: var(--chalk);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 92px;
+  font-weight: 850;
+  line-height: 1.08;
+  text-align: center;
+  filter: url("#chalk-rough-text");
+}
+
+.c4-ds-v2-roadmap {
+  position: absolute;
+  left: 170px;
+  right: 170px;
+  top: 340px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 26px;
+}
+
+.c4-ds-v2-caption-zone {
+  position: absolute;
+  left: 240px;
+  right: 240px;
+  bottom: 62px;
+  color: rgba(245, 245, 240, 0.58);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 26px;
+  font-weight: 650;
+  text-align: center;
+}
+
+.c4-manifest-asset {
+  position: relative;
+  display: block;
+  overflow: visible;
+}
+
+.c4-manifest-asset__image {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.c4-asset-placeholder {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto auto 1fr;
+  align-items: center;
+  justify-items: center;
+  min-width: 80px;
+  min-height: 60px;
+  padding: 10px;
+  overflow: hidden;
+  color: var(--chalk);
+  background: rgba(255, 107, 107, 0.08);
+  border: 3px dashed rgba(255, 107, 107, 0.78);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  text-align: center;
+}
+
+.c4-asset-placeholder__status {
+  color: var(--chalk-red);
+  font-size: 16px;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.c4-asset-placeholder__name {
+  max-width: 100%;
+  margin-top: 7px;
+  color: var(--chalk);
+  font-size: 18px;
+  font-weight: 850;
+  line-height: 1.08;
+}
+
+.c4-asset-placeholder__path {
+  max-width: 100%;
+  margin-top: 7px;
+  color: rgba(245, 245, 240, 0.56);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.c4-asset-placeholder--icon .c4-asset-placeholder__status {
+  font-size: 9px;
+}
+
+.c4-asset-placeholder--icon .c4-asset-placeholder__name {
+  font-size: 11px;
+}
+
+.c4-asset-card-label {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 8px;
+  color: var(--chalk);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  line-height: 1.05;
+  text-align: center;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+}
+
+.c4-ds-scene--asset-backed .c4-asset-placeholder {
+  width: 100%;
+  height: 100%;
+}
+
+.c4-ds-scene--asset-backed .c4-asset-placeholder__status {
+  font-size: 42px;
+}
+
+.c4-ds-scene--asset-backed .c4-asset-placeholder__name {
+  font-size: 62px;
+}
+
+.c4-ds-scene--asset-backed .c4-asset-placeholder__path {
+  font-size: 24px;
+}
+
+.c4-readiness-panel {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+  overflow: visible;
+  pointer-events: none;
+}
+
+.c4-readiness-eyebrow {
+  position: absolute;
+  left: 120px;
+  top: 72px;
+  color: var(--chalk-blue);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 850;
+}
+
+.c4-readiness-title {
+  position: absolute;
+  left: 120px;
+  right: 120px;
+  top: 112px;
+  color: var(--chalk);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 58px;
+  font-weight: 850;
+  line-height: 1.08;
+}
+
+.c4-readiness-subtitle {
+  position: absolute;
+  left: 120px;
+  right: 120px;
+  top: 250px;
+  color: var(--chalk-dim);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 30px;
+  font-weight: 650;
+  line-height: 1.24;
+}
+
+.c4-readiness-score-card {
+  position: absolute;
+  left: 128px;
+  top: 390px;
+  width: 430px;
+  height: 300px;
+  padding: 34px;
+  border: 3px solid rgba(245, 245, 240, 0.18);
+  background: rgba(42, 42, 42, 0.18);
+}
+
+.c4-readiness-score-card__number {
+  color: var(--chalk-red);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 118px;
+  font-weight: 900;
+  line-height: 0.9;
+}
+
+.c4-readiness-score-card__label {
+  margin-top: 24px;
+  color: var(--chalk);
+  font-size: 31px;
+  font-weight: 850;
+}
+
+.c4-readiness-score-card__detail {
+  margin-top: 12px;
+  color: var(--chalk-dim);
+  font-size: 24px;
+  font-weight: 650;
+}
+
+.c4-readiness-category-grid {
+  position: absolute;
+  left: 630px;
+  right: 130px;
+  top: 382px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px 30px;
+}
+
+.c4-readiness-category {
+  position: relative;
+  min-height: 82px;
+  padding: 16px 18px;
+  border: 2px solid rgba(245, 245, 240, 0.12);
+  background: rgba(42, 42, 42, 0.14);
+}
+
+.c4-readiness-category__label {
+  color: var(--chalk);
+  font-size: 23px;
+  font-weight: 850;
+}
+
+.c4-readiness-category__score {
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  color: var(--chalk-dim);
+  font-size: 22px;
+  font-weight: 750;
+}
+
+.c4-readiness-category__bar {
+  position: relative;
+  height: 10px;
+  margin-top: 18px;
+  background: rgba(245, 245, 240, 0.12);
+}
+
+.c4-readiness-category__bar-fill {
+  height: 100%;
+  background: var(--chalk-green);
+}
+
+.c4-readiness-note {
+  position: absolute;
+  left: 130px;
+  right: 130px;
+  bottom: 80px;
+  color: rgba(245, 245, 240, 0.62);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 23px;
+  line-height: 1.25;
+  text-align: center;
+}
+
+.c4-readiness-note--bottom {
+  bottom: 48px;
+}
+
+.c4-readiness-gallery {
+  position: absolute;
+  left: 118px;
+  right: 118px;
+  top: 350px;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 18px;
+}
+
+.c4-readiness-asset-card {
+  position: relative;
+  height: 144px;
+  padding: 12px;
+  overflow: hidden;
+  border: 2px solid rgba(245, 245, 240, 0.11);
+  background: rgba(42, 42, 42, 0.14);
+}
+
+.c4-readiness-asset-card .c4-asset-placeholder__status {
+  font-size: 10px;
+}
+
+.c4-readiness-asset-card .c4-asset-placeholder__name {
+  font-size: 13px;
+}
+
+.c4-readiness-asset-card .c4-asset-placeholder__path {
+  display: none;
+}
+
+.c4-readiness-asset-card__meta {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(245, 245, 240, 0.76);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.05;
+}
+
+.c4-readiness-dot {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  flex: 0 0 13px;
+  border-radius: 999px;
+}
+
+.c4-readiness-dot--ready {
+  background: var(--chalk-green);
+}
+
+.c4-readiness-dot--missing {
+  background: var(--chalk-red);
+}
+
+.c4-readiness-missing-list {
+  position: absolute;
+  left: 120px;
+  right: 120px;
+  top: 342px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px 24px;
+}
+
+.c4-readiness-row {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr) minmax(0, 1.1fr) 88px;
+  align-items: center;
+  gap: 10px;
+  min-height: 31px;
+  padding: 6px 10px;
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  background: rgba(255, 107, 107, 0.06);
+  color: var(--chalk);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 15px;
+}
+
+.c4-readiness-row__name {
+  overflow: hidden;
+  font-weight: 750;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c4-readiness-row__path {
+  overflow: hidden;
+  color: rgba(245, 245, 240, 0.55);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.c4-readiness-row__required {
+  color: var(--chalk-red);
+  font-size: 12px;
+  font-weight: 850;
+  text-align: right;
+  text-transform: uppercase;
 }
