@@ -1,0 +1,1031 @@
+:root {
+  --chalk: #f3efdc;
+  --chalk-heavy: #fff9e7;
+  --chalk-dim: rgba(243, 239, 220, 0.52);
+  --chalk-dust: rgba(243, 239, 220, 0.16);
+  --chalk-green: rgba(184, 202, 178, 0.7);
+  --board: #17211d;
+  --board-dark: #101612;
+  --board-line: rgba(243, 239, 220, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  background-color: var(--board-dark);
+}
+
+.chalk-filters {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.blackboard {
+  overflow: hidden;
+  background-color: var(--board);
+}
+
+.blackboard__texture {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.blackboard__noise {
+  fill: var(--chalk);
+  opacity: 0.045;
+  filter: url("#board-noise");
+}
+
+.blackboard__dust circle {
+  fill: var(--chalk);
+}
+
+.blackboard__scuffs path {
+  fill: none;
+  stroke: var(--chalk);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  filter: url("#chalk-rough-line");
+}
+
+.blackboard__edge {
+  position: absolute;
+  inset: 18px;
+  border: 2px solid rgba(243, 239, 220, 0.055);
+  outline: 1px solid rgba(0, 0, 0, 0.26);
+  pointer-events: none;
+}
+
+.scene {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+}
+
+.scene--intro {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.scene--diagram {
+  padding: 148px 150px 0;
+}
+
+.chalk-text {
+  position: relative;
+  display: inline-block;
+  color: transparent;
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  letter-spacing: 0;
+  line-height: 1.28;
+  padding: 0.07em 0.04em 0.24em;
+  margin: -0.07em -0.04em -0.24em;
+  overflow: visible;
+  white-space: pre-wrap;
+  vertical-align: bottom;
+}
+
+.chalk-text__spacer,
+.chalk-text__powder,
+.chalk-text__written {
+  display: block;
+}
+
+.chalk-text__spacer {
+  visibility: hidden;
+}
+
+.chalk-text__powder,
+.chalk-text__written {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+  filter: url("#chalk-rough-text");
+  overflow: visible;
+}
+
+.chalk-text__powder {
+  color: var(--chalk-dust);
+  transform: translate(1px, 1px);
+}
+
+.chalk-text__written {
+  text-shadow:
+    1px 0 rgba(255, 255, 255, 0.16),
+    -1px 1px rgba(255, 255, 255, 0.08),
+    0 1px rgba(0, 0, 0, 0.22);
+}
+
+.logo-intro__mark {
+  width: 150px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+}
+
+.logo-intro__asset {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.82;
+  filter: url("#chalk-rough-line");
+}
+
+.logo-intro__mark span {
+  color: var(--chalk);
+  font-family: "Bradley Hand", "Chalkboard SE", "Avenir Next", sans-serif;
+  font-size: 78px;
+  font-weight: 700;
+}
+
+.logo-intro__title {
+  font-size: 106px;
+  font-weight: 700;
+}
+
+.logo-intro__subtitle {
+  color: var(--chalk-dim);
+  font-size: 36px;
+  font-weight: 600;
+}
+
+.scene-title {
+  max-width: 1320px;
+  font-size: 82px;
+  font-weight: 700;
+}
+
+.diagram {
+  position: absolute;
+  inset: 0;
+}
+
+.diagram__ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.chalk-line {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: url("#chalk-rough-line");
+}
+
+.chalk-line__drag,
+.chalk-line__main {
+  fill: none;
+  stroke: var(--chalk);
+}
+
+.chalk-line__drag {
+  stroke-opacity: 0.18;
+}
+
+.chalk-line__grain {
+  fill: none;
+  stroke: var(--chalk-heavy);
+  stroke-opacity: 0.22;
+}
+
+.chalk-line--accent .chalk-line__drag,
+.chalk-line--accent .chalk-line__main {
+  stroke: var(--chalk-green);
+}
+
+.chalk-line--accent .chalk-line__main {
+  stroke-opacity: 0.84;
+}
+
+.chalk-line--accent .chalk-line__grain {
+  stroke: var(--chalk);
+  stroke-opacity: 0.16;
+}
+
+.chalk-line--muted .chalk-line__drag,
+.chalk-line--muted .chalk-line__main {
+  stroke: var(--chalk-green);
+  stroke-opacity: 0.46;
+}
+
+.chalk-line--muted .chalk-line__grain {
+  stroke: var(--chalk);
+  stroke-opacity: 0.13;
+}
+
+.chalk-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.diagram__label {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0 34px;
+  overflow: visible;
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+}
+
+.diagram__label .chalk-text__spacer,
+.diagram__label .chalk-text__powder,
+.diagram__label .chalk-text__written {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.caption {
+  position: absolute;
+  left: 240px;
+  right: 240px;
+  bottom: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  overflow: visible;
+}
+
+.caption__rule {
+  width: 760px;
+  height: 22px;
+}
+
+.caption__rule path {
+  fill: none;
+  stroke: var(--chalk-green);
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: url("#chalk-rough-line");
+}
+
+.caption p {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  color: var(--chalk);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 38px;
+  font-weight: 600;
+  line-height: 1.34;
+  padding-bottom: 0.2em;
+  overflow: visible;
+  text-align: center;
+}
+
+.caption__spacer,
+.caption__written {
+  display: block;
+}
+
+.caption__spacer {
+  visibility: hidden;
+}
+
+.caption__written {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  text-shadow:
+    1px 0 rgba(255, 255, 255, 0.08),
+    0 1px rgba(0, 0, 0, 0.3);
+}
+
+.style-lab {
+  position: absolute;
+  inset: 0;
+}
+
+.style-lab__title {
+  position: absolute;
+  font-size: 80px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.style-lab__watermark {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(243, 239, 220, 0.48);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.style-lab__watermark img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  opacity: 0.52;
+  filter: url("#chalk-rough-line");
+}
+
+.style-lab__node-label {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0 22px;
+  overflow: visible;
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.style-lab__node-label .chalk-text__spacer,
+.style-lab__node-label .chalk-text__powder,
+.style-lab__node-label .chalk-text__written {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.style-lab__erase-demo {
+  position: absolute;
+  font-size: 58px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.chalk-side-note {
+  position: absolute;
+  padding: 42px 46px 38px 62px;
+  overflow: visible;
+}
+
+.chalk-side-note__ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.chalk-side-note__title {
+  display: block;
+  font-size: 38px;
+  font-weight: 700;
+}
+
+.chalk-side-note__body {
+  display: block;
+  margin-top: 24px;
+  max-width: 300px;
+  color: var(--chalk-dim);
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 1.18;
+}
+
+.chalk-formula {
+  position: absolute;
+  font-size: 38px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.chalk-checklist {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.chalk-checklist__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  overflow: visible;
+}
+
+.chalk-checklist__box {
+  width: 44px;
+  height: 44px;
+  margin-right: 16px;
+  overflow: visible;
+  flex: 0 0 auto;
+}
+
+.chalk-checklist__label {
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.chalk-comparison {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.chalk-comparison__ink {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-comparison__column {
+  position: absolute;
+  padding: 54px 66px;
+  overflow: visible;
+}
+
+.chalk-comparison__heading {
+  display: block;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.chalk-comparison__statement {
+  display: block;
+  margin-top: 34px;
+  max-width: 520px;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.22;
+  overflow: visible;
+}
+
+.chalk-eraser-wipe {
+  position: absolute;
+  background-color: var(--board);
+  border-radius: 14px;
+  pointer-events: none;
+}
+
+.chalk-eraser-wipe::before,
+.chalk-eraser-wipe::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid rgba(243, 239, 220, 0.045);
+}
+
+.chalk-eraser-wipe::before {
+  top: 18px;
+}
+
+.chalk-eraser-wipe::after {
+  bottom: 18px;
+}
+
+.chalk-eraser-dust,
+.chalk-dust-puff {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.chalk-eraser-dust circle,
+.chalk-dust-puff circle {
+  fill: var(--chalk);
+}
+
+.descender-preview {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 180px 90px;
+  overflow: visible;
+}
+
+.descender-preview__phrase {
+  max-width: 1480px;
+  color: var(--chalk);
+  font-size: 92px;
+  font-weight: 700;
+  line-height: 1.28;
+  text-align: center;
+  overflow: visible;
+}
+
+.teaching-board {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+  overflow: visible;
+}
+
+.teaching-board__watermark {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(243, 239, 220, 0.46);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.teaching-board__watermark img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: url("#chalk-rough-line");
+}
+
+.teaching-board__question {
+  position: absolute;
+  left: 230px;
+  top: 170px;
+  font-size: 96px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.teaching-board__magic-word {
+  position: absolute;
+  left: 792px;
+  top: 304px;
+  width: 350px;
+  font-size: 78px;
+  font-weight: 700;
+  text-align: center;
+  overflow: visible;
+}
+
+.teaching-board__phrase {
+  position: absolute;
+  left: 400px;
+  top: 246px;
+  width: 980px;
+  font-size: 66px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.teaching-board__diagram-label,
+.teaching-board__example-label {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0 22px;
+  overflow: visible;
+  font-weight: 700;
+  text-align: center;
+}
+
+.teaching-board__diagram-label {
+  font-size: 42px;
+}
+
+.teaching-board__example-label {
+  font-size: 36px;
+}
+
+.teaching-board__diagram-label .chalk-text__spacer,
+.teaching-board__diagram-label .chalk-text__powder,
+.teaching-board__diagram-label .chalk-text__written,
+.teaching-board__example-label .chalk-text__spacer,
+.teaching-board__example-label .chalk-text__powder,
+.teaching-board__example-label .chalk-text__written {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.teaching-board__takeaway {
+  position: absolute;
+  left: 360px;
+  top: 768px;
+  width: 1140px;
+  font-size: 54px;
+  font-weight: 700;
+  text-align: center;
+  overflow: visible;
+}
+
+.teaching-board__caption-sequence {
+  overflow: visible;
+}
+
+.teaching-v2 {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+  transform-origin: 50% 50%;
+  overflow: visible;
+}
+
+.teaching-v2__opening,
+.teaching-v2__diagram,
+.teaching-v2__example,
+.teaching-v2__warning {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
+.teaching-v2__watermark {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(243, 239, 220, 0.46);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.teaching-v2__watermark img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: url("#chalk-rough-line");
+}
+
+.teaching-v2__question {
+  position: absolute;
+  left: 190px;
+  top: 145px;
+  width: 720px;
+  font-size: 96px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.teaching-v2__correction {
+  position: absolute;
+  left: 280px;
+  top: 258px;
+  width: 1050px;
+  font-size: 66px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.teaching-v2__diagram-label {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  padding: 0 24px;
+  overflow: visible;
+  font-size: 42px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.teaching-v2__diagram-label .chalk-text__spacer,
+.teaching-v2__diagram-label .chalk-text__powder,
+.teaching-v2__diagram-label .chalk-text__written {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.teaching-v2__warning-title {
+  position: absolute;
+  left: 500px;
+  top: 466px;
+  width: 760px;
+  font-size: 60px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.teaching-v2__warning .chalk-checklist {
+  gap: 15px;
+}
+
+.teaching-v2__warning .chalk-checklist__item {
+  min-height: 56px;
+}
+
+.teaching-v2__warning .chalk-checklist__label {
+  font-size: 42px;
+}
+
+.teaching-v2__facts-warning {
+  position: absolute;
+  left: 1035px;
+  top: 748px;
+  width: 560px;
+  font-size: 46px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.teaching-v2__final {
+  position: absolute;
+  left: 280px;
+  top: 405px;
+  width: 1360px;
+  font-size: 88px;
+  font-weight: 700;
+  line-height: 1.18;
+  overflow: visible;
+  text-align: center;
+}
+
+.teaching-v2-caption {
+  position: absolute;
+  left: 240px;
+  right: 240px;
+  bottom: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  overflow: visible;
+  color: var(--chalk);
+}
+
+.teaching-v2-caption__rule {
+  width: 760px;
+  height: 22px;
+}
+
+.teaching-v2-caption__rule path {
+  fill: none;
+  stroke: var(--chalk-green);
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: url("#chalk-rough-line");
+}
+
+.teaching-v2-caption p {
+  width: 100%;
+  margin: 0;
+  color: var(--chalk);
+  font-family: "Avenir Next", Inter, system-ui, sans-serif;
+  font-size: 36px;
+  font-weight: 650;
+  line-height: 1.34;
+  text-align: center;
+  text-shadow:
+    1px 0 rgba(255, 255, 255, 0.08),
+    0 1px rgba(0, 0, 0, 0.3);
+}
+
+.chalk-teaching-icon,
+.chalk-teaching-card {
+  position: absolute;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.chalk-teaching-icon svg,
+.chalk-teaching-card svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-magic-wand {
+  width: 360px;
+  height: 230px;
+}
+
+.chalk-magic-wand__label {
+  position: absolute;
+  left: 164px;
+  top: 74px;
+  width: 170px;
+  font-size: 44px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.chalk-pattern-icon {
+  width: 430px;
+  height: 190px;
+  opacity: 0.82;
+}
+
+.chalk-email-card,
+.chalk-draft-card {
+  color: var(--chalk);
+}
+
+.chalk-teaching-card__label {
+  position: absolute;
+  left: 30px;
+  right: 30px;
+  font-size: 30px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.chalk-email-card .chalk-teaching-card__label {
+  top: 74px;
+}
+
+.chalk-draft-card .chalk-teaching-card__label {
+  top: 28px;
+}
+
+.chalk-magnify-check {
+  width: 260px;
+  height: 230px;
+}
+
+.chalk-warning-checklist {
+  width: 280px;
+  height: 260px;
+  opacity: 0.88;
+}
+
+.magic-hook {
+  position: absolute;
+  inset: 0;
+  color: var(--chalk);
+  transform-origin: 50% 50%;
+  overflow: visible;
+}
+
+.magic-hook__watermark {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(243, 239, 220, 0.46);
+  font-family: "Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.magic-hook__watermark img {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  opacity: 0.5;
+  filter: url("#chalk-rough-line");
+}
+
+.magic-hook__question {
+  position: absolute;
+  left: 214px;
+  top: 148px;
+  width: 780px;
+  font-size: 104px;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.magic-hook__chaos {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.magic-hook__no {
+  position: absolute;
+  left: 690px;
+  top: 348px;
+  width: 560px;
+  color: var(--chalk-heavy);
+  font-size: 214px;
+  font-weight: 800;
+  line-height: 1;
+  overflow: visible;
+  text-align: center;
+}
+
+.magic-hook__actually {
+  position: absolute;
+  left: 390px;
+  top: 374px;
+  width: 1160px;
+  font-size: 92px;
+  font-weight: 700;
+  overflow: visible;
+  text-align: center;
+}
+
+.magic-hook__teaching-line {
+  position: absolute;
+  left: 260px;
+  top: 420px;
+  width: 1400px;
+  font-size: 76px;
+  font-weight: 700;
+  line-height: 1.22;
+  overflow: visible;
+  text-align: center;
+}
+
+.magic-hook__teaching-line .chalk-text {
+  display: block;
+}
+
+.chalk-creative-object,
+.chalk-creative-freeze,
+.chalk-sad-exit,
+.chalk-excited-return {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.chalk-creative-object svg,
+.chalk-creative-freeze svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.chalk-magic-wand-object {
+  width: 300px;
+  height: 210px;
+  transform-origin: 44% 50%;
+}
+
+.chalk-spark {
+  width: 130px;
+  height: 130px;
+  transform-origin: 50% 50%;
+}
+
+.chalk-poof {
+  width: 180px;
+  height: 150px;
+  transform-origin: 50% 50%;
+}
+
+.chalk-poof circle {
+  fill: var(--chalk);
+  opacity: 0.22;
+}
+
+.chalk-poof path {
+  fill: none;
+  stroke: var(--chalk);
+  stroke-width: 4.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.44;
+  filter: url("#chalk-rough-line");
+}
+
+.chalk-alien {
+  width: 240px;
+  height: 210px;
+  transform-origin: 50% 55%;
+}
+
+.chalk-saucepan {
+  width: 320px;
+  height: 190px;
+  transform-origin: 48% 58%;
+}
+
+.chalk-creative-freeze {
+  width: 620px;
+  height: 380px;
+  transform-origin: 50% 50%;
+}
+
+.chalk-emotion-face--sad {
+  opacity: 0.82;
+}

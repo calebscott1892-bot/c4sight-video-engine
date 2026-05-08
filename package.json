@@ -1,0 +1,32 @@
+{
+  "name": "c4sight-video-engine",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts C4SightMotionTest out/c4sight-motion-test.mp4 --codec=h264",
+    "render:stylelab": "remotion render src/index.ts C4SightStyleLab out/c4sight-style-lab.mp4 --codec=h264",
+    "render:teaching-beat": "remotion render src/index.ts C4SightTeachingBeatTest out/c4sight-teaching-beat-test.mp4 --codec=h264",
+    "render:teaching-beat-v2": "remotion render src/index.ts C4SightTeachingBeatTestV2 out/c4sight-teaching-beat-test-v2.mp4 --codec=h264",
+    "render:magic-hook-burst": "remotion render src/index.ts C4SightMagicHookBurst out/c4sight-magic-hook-burst.mp4 --codec=h264",
+    "render:preview": "remotion still src/index.ts C4SightMotionTest out/preview.png --frame=160",
+    "render:stylelab-preview": "remotion still src/index.ts C4SightStyleLab out/c4sight-style-lab-preview.png --frame=430",
+    "render:descenders-preview": "remotion still src/index.ts ChalkTextDescenderPreview out/chalk-text-descenders-preview.png --frame=90",
+    "render:teaching-beat-preview": "remotion still src/index.ts C4SightTeachingBeatTest out/c4sight-teaching-beat-preview.png --frame=540",
+    "render:teaching-beat-v2-preview": "remotion still src/index.ts C4SightTeachingBeatTestV2 out/c4sight-teaching-beat-v2-preview.png --frame=540",
+    "render:magic-hook-burst-preview": "remotion still src/index.ts C4SightMagicHookBurst out/c4sight-magic-hook-burst-preview.png --frame=450",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@remotion/cli": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "remotion": "latest"
+  },
+  "devDependencies": {
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "typescript": "latest"
+  }
+}
