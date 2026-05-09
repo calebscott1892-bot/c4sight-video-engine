@@ -1,12 +1,14 @@
 # C4Sight Animation Bible
 
+> Historical note: this document has been superseded by `docs/C4Sight-Show-Bible.md`. Use the Show Bible as the creative source of truth. This file remains only as an older reference for pacing and animatic principles.
+
 This document defines the production language for C4Sight animation. It exists so episodes are built from a disciplined visual system, not from one-off scene polish.
 
 ## Brand Animation Philosophy
 
 C4Sight explains AI clearly for everyday people and practical businesses. The animation should feel like a calm, capable teacher using a blackboard: precise enough to be trusted, warm enough to be watchable, and playful enough to make abstract ideas memorable.
 
-The style is blackboard/chalk first. The board is the world. Chalk marks, eraser wipes, dust, simple props, and expressive but restrained characters are the vocabulary.
+Deprecated assumption from an earlier prototype: the style is not blackboard/chalk first anymore, and the board is not the whole world. Blackboard/chalk remains useful only as Blackboard Teaching Mode inside the multi-mode Show Bible system.
 
 C4Sight is not trying to animate every spoken word. It is trying to make ideas easier to follow.
 

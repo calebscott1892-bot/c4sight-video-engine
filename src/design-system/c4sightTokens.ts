@@ -1,11 +1,21 @@
 import {videoLayout} from '../layout/blackboardLayout';
 
+const showBiblePalette = {
+  slate: '#1A1F1C',
+  chalk: '#F4EDE0',
+  paper: '#EFE7D6',
+  verifyRed: '#D7382C',
+  wizardLavender: '#B9A8C7',
+  ink: '#221F1F',
+} as const;
+
 export const c4sightTokens = {
   source: {
+    showBible: 'docs/C4Sight-Show-Bible.md',
     figmaMakeFileKey: 'dkTT6PWK7M5s2GvUF9GZcs',
     figmaMakeUrl:
       'https://www.figma.com/make/dkTT6PWK7M5s2GvUF9GZcs/C4Sight-Animated-Explainer-Board?t=0cRPeIg5uW01zKTo-1',
-    localSourcePack: 'reference/c4sight_figma_make_source_pack',
+    localSourcePack: 'reference/figma-make-source',
     boards: [
       'BrandBoard',
       'CharacterBible',
@@ -24,23 +34,68 @@ export const c4sightTokens = {
     fps: videoLayout.fps,
     aspectRatio: '16:9',
   },
+  palette: showBiblePalette,
+  mainWorld: {
+    background: showBiblePalette.paper,
+    foreground: showBiblePalette.ink,
+    surface: '#F7F0E2',
+    line: showBiblePalette.ink,
+    accent: showBiblePalette.wizardLavender,
+  },
+  blackboardMode: {
+    background: showBiblePalette.slate,
+    foreground: showBiblePalette.chalk,
+    surface: '#252B27',
+    line: showBiblePalette.chalk,
+    dust: 'rgba(244, 237, 224, 0.16)',
+  },
+  interfaceMode: {
+    background: showBiblePalette.paper,
+    foreground: showBiblePalette.ink,
+    surface: '#FFF9EA',
+    line: 'rgba(34, 31, 31, 0.72)',
+    accent: showBiblePalette.verifyRed,
+  },
+  humanJudgementMode: {
+    background: '#E8DCC7',
+    foreground: showBiblePalette.ink,
+    surface: showBiblePalette.paper,
+    line: 'rgba(34, 31, 31, 0.66)',
+    accent: showBiblePalette.verifyRed,
+  },
+  verifyStamp: {
+    fill: showBiblePalette.verifyRed,
+    stroke: showBiblePalette.verifyRed,
+    text: showBiblePalette.paper,
+  },
+  wizard: {
+    fill: showBiblePalette.wizardLavender,
+    stroke: showBiblePalette.ink,
+    chalkStroke: showBiblePalette.chalk,
+  },
   colors: {
-    board: '#1a1a1a',
-    boardPanel: '#2a2a2a',
-    boardDeep: '#111111',
-    boardGuide: 'rgba(245, 245, 240, 0.1)',
-    boardDust: 'rgba(245, 245, 240, 0.08)',
-    chalk: '#f5f5f0',
-    chalkHeavy: '#fffdf2',
-    chalkDim: 'rgba(245, 245, 240, 0.68)',
-    chalkGhost: 'rgba(245, 245, 240, 0.34)',
-    chalkDust: 'rgba(245, 245, 240, 0.18)',
+    slate: showBiblePalette.slate,
+    chalk: showBiblePalette.chalk,
+    paper: showBiblePalette.paper,
+    verifyRed: showBiblePalette.verifyRed,
+    wizardLavender: showBiblePalette.wizardLavender,
+    ink: showBiblePalette.ink,
+    board: showBiblePalette.slate,
+    boardPanel: '#252B27',
+    boardDeep: '#101310',
+    boardGuide: 'rgba(244, 237, 224, 0.1)',
+    boardDust: 'rgba(244, 237, 224, 0.08)',
+    chalkHeavy: '#FFF8E8',
+    chalkDim: 'rgba(244, 237, 224, 0.68)',
+    chalkGhost: 'rgba(244, 237, 224, 0.34)',
+    chalkDust: 'rgba(244, 237, 224, 0.18)',
     accents: {
-      blue: '#7ec8e3',
-      green: '#8fce00',
-      amber: '#f4d58d',
-      purple: '#c297ff',
-      red: '#ff6b6b',
+      verifyRed: showBiblePalette.verifyRed,
+      wizardLavender: showBiblePalette.wizardLavender,
+      paper: showBiblePalette.paper,
+      ink: showBiblePalette.ink,
+      mutedSage: '#8EA18E',
+      mutedGold: '#C6A760',
     },
   },
   lineWeights: {
@@ -52,9 +107,9 @@ export const c4sightTokens = {
   },
   typography: {
     titleFamily:
-      '"Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif',
+      '"Avenir Next", "Bradley Hand", "Chalkboard SE", "Marker Felt", sans-serif',
     bodyFamily:
-      '"Bradley Hand", "Chalkboard SE", "Marker Felt", "Avenir Next", sans-serif',
+      '"Avenir Next", "Bradley Hand", "Chalkboard SE", "Marker Felt", sans-serif',
     captionFamily: '"Avenir Next", Inter, system-ui, sans-serif',
     weights: {
       title: 800,

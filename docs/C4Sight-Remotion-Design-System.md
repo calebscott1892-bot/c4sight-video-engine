@@ -1,94 +1,136 @@
 # C4Sight Remotion Design System
 
-This document defines how the Figma Make production board maps into the Remotion implementation.
+This document explains how the C4Sight Show Bible maps into the Remotion implementation.
 
-Figma Make source:
-https://www.figma.com/make/dkTT6PWK7M5s2GvUF9GZcs/C4Sight-Animated-Explainer-Board?t=0cRPeIg5uW01zKTo-1
+Creative source of truth:
 
-The Remotion design system is not a replacement for the Figma board. It is the code implementation layer for it.
+`docs/C4Sight-Show-Bible.md`
 
-## Board To Code Map
+The Remotion design system is an implementation layer. It should never invent the creative direction.
 
-| Figma Board Section | Remotion Location | Purpose |
+## Production Principle
+
+C4Sight is a multi-mode animated educational show, not a chalkboard-only template.
+
+Approved visual modes:
+
+- Main Animated World
+- Blackboard Teaching Mode
+- Interface / Tool Mode
+- Human Judgement / Real-World Mode
+
+Blackboard Teaching Mode appears only when the presenter needs to explain something more deeply and should be entered through the ritual:
+
+> “Let’s take it to the blackboard.”
+
+## External Character Package
+
+The Figma-generated package is now integrated locally as:
+
+`packages/c4sight-design-system/`
+
+Import name:
+
+`@c4sight/design-system`
+
+This package is the preferred source for:
+
+- Tiny Alien Wizard artwork
+- Host artwork
+- C4Sight palette exports
+- basic character timing previews
+
+Internal adapter layer:
+
+- `src/design-system/external/C4SightWizard.tsx`
+- `src/design-system/external/C4SightHost.tsx`
+- `src/design-system/external/index.ts`
+
+Codex must not invent new Wizard or Host art in episode code. If the external package is unavailable or a prop is unsupported, the adapters should show labelled placeholders or normalize props rather than drawing replacement character art.
+
+## Show Bible To Code Map
+
+| Show Bible Area | Remotion Location | Purpose |
 | --- | --- | --- |
-| `BrandBoard` | `src/design-system/c4sightTokens.ts` | Board colours, chalk accents, typography scale, safe margins, timing constants. |
-| `CharacterBible` | `src/design-system/characters/` | Mascot component and approved pose names. |
-| `PropLibrary` | `src/design-system/props/` | Wand, saucepan, bucket, laptop, cards, eraser, poofs, sparks, and utility icons. |
-| `IconSystem` | `src/design-system/props/` | Magnifying glass, warning, checklist, and utility symbols. |
-| `SceneSystem` | `src/design-system/scenes/` | Approved scene archetype components. |
-| `AnimationGrammar` | `src/design-system/animation/` | Timing helpers for write-on, draw-on, freezes, reactions, erasing, holds, and chaos-to-calm resets. |
-| `EpisodeStoryboard` | Episode files under `src/video/` | Episodes assemble scenes; they should not create new visual language. |
-| `SeriesRoadmap` | Docs and episode data | Defines future episode structure before animation work begins. |
-| `ExportSpec` | Remotion compositions and render scripts | 1920x1080, 30fps, H.264 MP4 outputs plus QA contact sheets. |
+| Palette and mode tokens | `src/design-system/c4sightTokens.ts` | Locked colours, mode tokens, type scale, spacing, and timing constants. |
+| Figma character package | `packages/c4sight-design-system/` | Preferred Wizard, Host, and palette source. |
+| External adapters | `src/design-system/external/` | Remotion-friendly wrappers around the Figma-generated package. |
+| Asset requirements | `src/design-system/c4sightAssetManifest.ts` | Required production files and missing-asset reporting. |
+| Character and recurring devices | `src/design-system/characters/`, `src/design-system/props/` | Render approved host, Tiny Alien Wizard, props, and recurring devices from manifest assets. |
+| Scene grammar | `src/design-system/scenes/` | Approved scene archetypes and mode-aware layout wrappers. |
+| Animation grammar | `src/design-system/animation/` | Timing helpers for holds, reactions, transitions, resets, and write/draw-on behaviour. |
+| Production gates | `docs/C4Sight-Production-Gates.md` | Rules that block animation when styleframes or assets are missing. |
+| Asset QA | `docs/C4Sight-Asset-QA-Checklist.md` | Review rules for imported files before they are considered production-ready. |
 
-## Approved Import Surface
+## Asset Manifest Categories
 
-Future episode code should prefer these imports:
+The manifest uses the Show Bible categories:
 
-```ts
-import {c4sightTokens} from '../design-system/c4sightTokens';
-import {C4SightMascot} from '../design-system/characters';
-import {C4SightProp, C4SightCardProp} from '../design-system/props';
-import {
-  HookQuestionScene,
-  ControlledChaosScene,
-  CorrectionScene,
-  OverwhelmScene,
-  SlowDownResetScene,
-  TeachingDiagramScene,
-  RoadmapScene,
-} from '../design-system/scenes';
-import {writeOnText, drawOnStroke, holdFrame} from '../design-system/animation';
-```
+- `main_world`
+- `blackboard_mode`
+- `interface_mode`
+- `human_judgement_mode`
+- `recurring_devices`
+- `mascot_wizard`
+- `host`
+- `transitions`
+- `audio_identity`
 
-Older files in `src/components/` are now implementation primitives. New episode scenes should not reach into them unless extending the design system itself.
+These categories are production gates, not just folders.
 
-## Mascot Poses
+## Required Recurring Devices
 
-Approved poses:
+The Show Bible recurring devices are:
 
-- `neutral`
-- `confident`
-- `confused`
-- `sad`
-- `overwhelmed`
-- `excited`
-- `walkingAway`
-- `runningBack`
-- `presenting`
-- `pointing`
-- `holdingProp`
+- Tiny Alien Wizard
+- Verify Stamp
+- Cabinet of Caveats
+- Confidently Wrong Office Worker
+- Toolbox
+- Scam Guru
 
-Character acting should be readable at contact-sheet size. Use the mascot as punctuation, not decoration.
+They should be imported as real designed assets through the manifest. Codex should not redraw them in episode files.
 
-## Props And Icons
+## Transition System
 
-Approved prop kinds:
+Required transition assets:
 
-- `wand`
-- `saucepan`
-- `bucket`
-- `laptop`
-- `emailCard`
-- `websiteCard`
-- `assignmentCard`
-- `codeCard`
-- `imageCard`
-- `summaryCard`
-- `businessIdeaCard`
-- `magnifyingGlass`
-- `warningIcon`
-- `checklist`
-- `eraser`
-- `poof`
-- `spark`
-- `burst`
+- `transition.blackboard_ritual_transition`
+- `transition.take_to_blackboard_transition`
+- `transition.board_roll_in`
+- `transition.chalk_dust_wipe`
+- `transition.mascot_points_to_board`
+- `transition.world_to_board_zoom`
+- `transition.eraser_wipe`
+- `audio.two_chalk_taps`
 
-Do not add one-off chalk props inside episode files. Add them to `src/design-system/props/` only after they exist in the Figma board or are explicitly approved.
+These assets support motivated mode changes. Blackboard mode should not appear as a random cut.
 
-## Scene Archetypes
+## Token System
 
-Approved scene components:
+The locked Show Bible palette:
+
+- Slate: `#1A1F1C`
+- Chalk: `#F4EDE0`
+- Paper: `#EFE7D6`
+- Verify Red: `#D7382C`
+- Wizard Lavender: `#B9A8C7`
+- Ink: `#221F1F`
+
+Named mode tokens in `c4sightTokens.ts`:
+
+- `mainWorld`
+- `blackboardMode`
+- `interfaceMode`
+- `humanJudgementMode`
+- `verifyStamp`
+- `wizard`
+
+Use these tokens before adding new colours or spacing values.
+
+## Approved Scene Archetypes
+
+Current reusable scene archetypes:
 
 - `HookQuestionScene`
 - `ControlledChaosScene`
@@ -103,44 +145,95 @@ Approved scene components:
 - `RoadmapScene`
 - `OutroScene`
 
-Episodes should be assembled from these archetypes first. If a storyboard seems to need a new scene type, add it to the Figma board before implementing it in Remotion.
-
-## Naming Conventions
-
-- Design-system exports use `C4Sight...` for reusable objects and exact archetype names for scenes.
-- Props use `kind` names that match the Figma production board language.
-- Episode-only timing may live in an episode file, but reusable timing behaviour belongs in `src/design-system/animation/`.
-- Scene components should accept `startFrame` and `endFrame`.
-- All timing should be in frames at the composition boundary.
+Each scene should declare or imply its visual mode. If a storyboard needs a new scene archetype, add the rule to the Show Bible/design docs before implementing it.
 
 ## What Codex Is No Longer Allowed To Invent
 
-Codex should not invent:
+Codex must not invent:
 
-- Random chalk/SVG assets inside episode files.
-- New mascot expressions or poses outside `CharacterBible`.
-- New prop types outside `PropLibrary`.
-- New icons outside `IconSystem`.
-- New scene patterns outside `SceneSystem`.
-- New motion grammar outside `AnimationGrammar`.
-- Generic AI visuals, blobs, neon, gradients, SaaS cards, or stock explainer motion.
+- creative direction outside the Show Bible
+- new Wizard or Host artwork outside `@c4sight/design-system`
+- random characters, props, or recurring devices
+- placeholder art treated as production art
+- chalkboard-only episode language
+- blackboard transitions that skip the ritual
+- generic AI blobs
+- glowing neural networks
+- neon
+- blue-purple gradients
+- corporate SaaS visuals
+- childish classroom clipart
+- fake-profound endings
 
-Codex may create code adapters, wrappers, and timing utilities that implement the Figma board in Remotion.
+Codex may create:
+
+- manifest entries
+- type-safe wrappers
+- readiness previews
+- layout helpers
+- timing helpers
+- production documentation
+- labelled placeholders for missing assets
 
 ## Episode Assembly Workflow
 
-1. Start from the Figma storyboard and animation grammar.
-2. Choose approved scene archetypes.
-3. Use `c4sightTokens` for spacing, colour, type size, and timing.
-4. Use approved mascot poses and props.
-5. Build an animatic before final polish.
-6. Render QA stills and a contact sheet.
-7. Review pacing, readability, and clutter before adding detail.
+Future episode work must follow this order:
 
-The production rule is simple: Figma defines the language; Remotion performs it.
+1. Confirm the Show Bible and production gates.
+2. Lock the episode question.
+3. Lock the script.
+4. Approve styleframes for required visual modes.
+5. Import required assets and update the manifest.
+6. Run `npm run assets:scan`.
+7. Build a voice-led animatic.
+8. Approve the animatic.
+9. Build final animation.
+10. Render QA stills, contact sheets, and final exports.
 
-## Current Integration Note
+## Episode 1 Direction
 
-The local Figma Make source pack in `reference/c4sight_figma_make_source_pack/` is now the active source reference. The V2 Remotion components derive mascot proportions, prop/icon SVG paths, palette, scene zones, timing grammar, and export rules from that pack rather than the earlier placeholder SVG system.
+Episode 1 is centred around:
 
-If the live Figma board changes, update the source pack first, then sync those changes into `src/design-system/` before touching episode files.
+`Is AI actually magic, or are we just bad at understanding it?`
+
+Target length: 6-8 minutes.
+
+It should not become a 10-minute encyclopedia. The episode should establish the C4Sight point of view, explain why AI can feel magical, clarify what AI is not, and teach viewers how to start thinking clearly about it.
+
+## Current Status
+
+Animation is blocked until required assets and styleframes exist. `C4SightAssetReadinessPreview` should be used to check production readiness by mode and by Episode 1 minimum required assets.
+
+Use `C4SightExternalDesignSystemPreview` to verify that the local Figma-generated character package is importable and rendering before using it in animatics.
+
+## Production QA Harness
+
+Before any animation work resumes, run:
+
+```bash
+npm run c4sight:qa
+```
+
+This generates:
+
+`docs/generated/C4Sight-Production-QA-Report.md`
+
+The harness checks:
+
+- asset scan freshness
+- manifest asset readiness
+- missing required and Episode 1 minimum assets
+- duplicate asset IDs and file paths
+- empty asset folders and folder structure
+- external `@c4sight/design-system` build/import health
+- Wizard, Host, and palette exports
+- TypeScript health
+- Gate 1-8 production status
+
+Focused commands:
+
+- `npm run c4sight:qa:assets` - manifest and file-system asset validation
+- `npm run c4sight:qa:design-system` - external package build/import validation
+- `npm run c4sight:qa:gates` - production gate status
+
+Passing TypeScript does not mean production is unblocked. Codex must not proceed to animation while the QA report says Gate 4 or Gate 5 is blocked.

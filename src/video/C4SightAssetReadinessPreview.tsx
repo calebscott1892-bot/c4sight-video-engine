@@ -3,13 +3,11 @@ import {BlackboardBackground} from '../components/BlackboardBackground';
 import {ChalkFilters} from '../components/ChalkFilters';
 import {
   getC4SightAssetReadiness,
-  getC4SightCategoryReadiness,
   isC4SightAssetReady,
   ManifestAsset,
 } from '../design-system/assets';
 import {
   c4sightAssetManifest,
-  type C4SightAssetCategory,
   type C4SightManifestAsset,
 } from '../design-system/c4sightAssetManifest';
 import {holdFrame} from '../design-system/animation';
@@ -20,24 +18,59 @@ const sec = (value: number) => Math.round(value * fps);
 
 export const c4SightAssetReadinessPreviewDurationSeconds = 20;
 
-const categories: C4SightAssetCategory[] = [
-  'character',
-  'prop',
-  'card',
-  'icon',
-  'effect',
-  'texture',
-  'scene-keyframe',
-];
+const readinessGroups = [
+  {
+    label: 'Main Animated World',
+    filter: (asset: C4SightManifestAsset) =>
+      asset.category === 'main_world' || asset.category === 'host',
+  },
+  {
+    label: 'Blackboard Teaching Mode',
+    filter: (asset: C4SightManifestAsset) =>
+      asset.category === 'blackboard_mode' ||
+      asset.category === 'transitions' ||
+      asset.category === 'audio_identity',
+  },
+  {
+    label: 'Interface / Tool Mode',
+    filter: (asset: C4SightManifestAsset) => asset.category === 'interface_mode',
+  },
+  {
+    label: 'Human Judgement / Real-World Mode',
+    filter: (asset: C4SightManifestAsset) =>
+      asset.category === 'human_judgement_mode',
+  },
+  {
+    label: 'Recurring Devices',
+    filter: (asset: C4SightManifestAsset) =>
+      asset.category === 'recurring_devices' ||
+      asset.category === 'mascot_wizard',
+  },
+  {
+    label: 'Episode 1 Minimum Required Assets',
+    filter: (asset: C4SightManifestAsset) =>
+      'episode1Minimum' in asset && asset.episode1Minimum === true,
+  },
+] as const;
 
-const categoryLabels: Record<C4SightAssetCategory, string> = {
-  character: 'Characters',
-  prop: 'Props',
-  card: 'Cards',
-  icon: 'Icons',
-  effect: 'Effects',
-  texture: 'Textures',
-  'scene-keyframe': 'Scene keyframes',
+const getGroupReadiness = (
+  filter: (asset: C4SightManifestAsset) => boolean,
+) => {
+  const assets = c4sightAssetManifest.filter(filter);
+  const requiredAssets = assets.filter((asset) => asset.required);
+  const readyRequiredAssets = requiredAssets.filter((asset) =>
+    isC4SightAssetReady(asset.id),
+  );
+
+  return {
+    assets,
+    requiredAssets,
+    readyRequiredAssets,
+    score:
+      requiredAssets.length === 0
+        ? 0
+        : Math.round((readyRequiredAssets.length / requiredAssets.length) * 100),
+  };
 };
 
 const Header = ({
@@ -80,16 +113,20 @@ const AssetRow = ({asset}: {asset: C4SightManifestAsset}) => {
   );
 };
 
-const CategoryScore = ({category}: {category: C4SightAssetCategory}) => {
-  const readiness = getC4SightCategoryReadiness(category);
+const CategoryScore = ({
+  label,
+  filter,
+}: {
+  label: string;
+  filter: (asset: C4SightManifestAsset) => boolean;
+}) => {
+  const readiness = getGroupReadiness(filter);
   const readyCount = readiness.readyRequiredAssets.length;
   const requiredCount = readiness.requiredAssets.length;
 
   return (
     <div className="c4-readiness-category">
-      <div className="c4-readiness-category__label">
-        {categoryLabels[category]}
-      </div>
+      <div className="c4-readiness-category__label">{label}</div>
       <div className="c4-readiness-category__score">
         {readyCount}/{requiredCount}
       </div>
@@ -110,9 +147,9 @@ const OverviewPanel = () => {
   return (
     <section className="c4-readiness-panel" style={holdFrame(frame, 0, sec(5))}>
       <Header
-        eyebrow="Asset intake"
-        title="Episode 1 production is gated by real designed assets"
-        subtitle="This preview reports what is present in /public/c4sight/assets and what is still missing."
+        eyebrow="Show Bible asset intake"
+        title="Animation is gated by real designed assets"
+        subtitle="C4Sight now tracks readiness by visual mode and Episode 1 minimum production needs."
       />
       <div className="c4-readiness-score-card">
         <div className="c4-readiness-score-card__number">{readiness.score}%</div>
@@ -124,12 +161,16 @@ const OverviewPanel = () => {
         </div>
       </div>
       <div className="c4-readiness-category-grid">
-        {categories.map((category) => (
-          <CategoryScore key={category} category={category} />
+        {readinessGroups.map((group) => (
+          <CategoryScore
+            key={group.label}
+            label={group.label}
+            filter={group.filter}
+          />
         ))}
       </div>
       <div className="c4-readiness-note">
-        Drop finished SVG/PNG files into the manifest paths, run `npm run assets:scan`, then render this preview again.
+        Drop approved Show Bible assets into the manifest paths, run `npm run assets:scan`, then review this preview again.
       </div>
     </section>
   );
@@ -207,26 +248,28 @@ export const C4SightAssetReadinessPreview = () => (
     <GalleryPanel
       start={sec(5)}
       end={sec(10)}
-      eyebrow="Characters, props, cards"
-      title="Real art assets replace coded placeholders"
-      subtitle="If an asset is missing, Remotion now says so plainly instead of pretending the placeholder is final."
+      eyebrow="Modes and recurring devices"
+      title="The Show Bible defines the production language"
+      subtitle="Main world, host, Tiny Alien Wizard, and recurring devices must come from approved assets."
       filter={(asset) =>
-        asset.category === 'character' ||
-        asset.category === 'prop' ||
-        asset.category === 'card'
+        asset.category === 'main_world' ||
+        asset.category === 'host' ||
+        asset.category === 'recurring_devices' ||
+        asset.category === 'mascot_wizard'
       }
     />
     <GalleryPanel
       start={sec(10)}
       end={sec(15)}
-      eyebrow="Icons, effects, textures, keyframes"
-      title="Supporting assets are tracked by the same manifest"
-      subtitle="Scene keyframes and textures are first-class production inputs, not hidden one-off files."
+      eyebrow="Teaching, tools, judgement"
+      title="Blackboard is one mode, not the whole show"
+      subtitle="Interface, human judgement, board ritual transitions, and audio identity are all tracked before animation resumes."
       filter={(asset) =>
-        asset.category === 'icon' ||
-        asset.category === 'effect' ||
-        asset.category === 'texture' ||
-        asset.category === 'scene-keyframe'
+        asset.category === 'blackboard_mode' ||
+        asset.category === 'interface_mode' ||
+        asset.category === 'human_judgement_mode' ||
+        asset.category === 'transitions' ||
+        asset.category === 'audio_identity'
       }
     />
     <MissingPanel />

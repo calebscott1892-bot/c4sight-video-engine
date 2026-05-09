@@ -1,0 +1,56 @@
+{
+  "name": "@c4sight/design-system",
+  "version": "1.0.0",
+  "description": "C4Sight character design system and styleframe components for Codex/Remotion",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./characters": {
+      "import": "./dist/characters/index.js",
+      "types": "./dist/characters/index.d.ts"
+    },
+    "./palette": {
+      "import": "./dist/palette.js",
+      "types": "./dist/palette.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "prepublishOnly": "npm run clean && npm run build",
+    "typecheck": "tsc --noEmit"
+  },
+  "files": [
+    "dist",
+    "src",
+    "README.md"
+  ],
+  "keywords": [
+    "c4sight",
+    "remotion",
+    "codex",
+    "react",
+    "svg",
+    "animation",
+    "design-system"
+  ],
+  "peerDependencies": {
+    "react": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "typescript": "^5.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/c4sight/design-system"
+  },
+  "license": "MIT"
+}

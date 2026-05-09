@@ -1,210 +1,159 @@
 # C4Sight Video Engine
 
-Reusable Remotion prototype for C4Sight blackboard-style educational videos.
+Reusable Remotion production system for C4Sight, a multi-mode animated AI education show from C4 Studios.
 
-This first pass is a 15-20 second motion test, not a finished YouTube episode. It establishes a code-based system for future faceless AI explainer videos.
+C4Sight is no longer a chalkboard-only animation project. Blackboard Teaching Mode is one recurring device inside a broader show language.
 
-Current production direction: animation work is paused until real designed assets are imported. Remotion now reads from an asset manifest and shows labelled missing placeholders instead of treating coded placeholder art as final.
+## Source Of Truth
 
-## Prototype
+The creative source of truth is:
 
-Composition: `C4SightMotionTest`
+`docs/C4Sight-Show-Bible.md`
 
-Style lab composition: `C4SightStyleLab`
+Codex should not invent creative direction, characters, props, visual modes, or episode structure outside the Show Bible and approved production assets. If any older doc or prototype conflicts with the Show Bible, the Show Bible wins.
 
-Teaching beat test composition: `C4SightTeachingBeatTest`
+## Visual Modes
 
-Teaching beat V2 composition: `C4SightTeachingBeatTestV2`
+C4Sight uses four production modes:
 
-Creative hook burst composition: `C4SightMagicHookBurst`
+- Main Animated World: default world for hooks, metaphors, humour, and connective narration.
+- Blackboard Teaching Mode: deeper explanation mode entered through the ritual “Let’s take it to the blackboard.”
+- Interface / Tool Mode: prompts, AI outputs, workflows, documents, tools, and practical demonstrations.
+- Human Judgement / Real-World Mode: grounded scenes about trust, consequences, decisions, and responsible use.
 
-Episode 01 cold open composition: `C4SightEpisode01ColdOpen`
+## Production Flow
 
-Episode 01 cold open V2 composition: `C4SightEpisode01ColdOpenV2`
+The C4Sight pipeline is:
 
-Episode 01 foundation animatic component: `C4SightEpisode01_Animatic`
+1. Show Bible
+2. Script
+3. Styleframes/assets
+4. Manifest
+5. Animatic
+6. Final animation
+7. QA/export
 
-Episode 01 foundation animatic Remotion ID: `C4SightEpisode01-Animatic`
+Animation should not resume until required styleframes and assets are present and the production gates are satisfied.
 
-Asset readiness composition: `C4SightAssetReadinessPreview`
+See:
 
-Animation bible: `docs/C4Sight-Animation-Bible.md`
-
-Asset intake docs:
-
+- `docs/C4Sight-Production-Gates.md`
 - `docs/C4Sight-Required-Asset-Checklist.md`
 - `docs/C4Sight-Asset-QA-Checklist.md`
+- `docs/C4Sight-Remotion-Design-System.md`
 
-Title: `What AI Actually Is`
+## Current Status
 
-Resolution: `1920x1080`
+Animation production is paused. The Remotion design system now reads from an asset manifest and reports missing production assets clearly instead of treating coded placeholder art as final.
 
-Duration: `18s`
+The Figma-generated character package is now available locally as `@c4sight/design-system` from `packages/c4sight-design-system/`. It is the preferred source for Wizard, Host, and palette assets. Older coded placeholder art remains fallback only.
 
-Scene flow:
+Current Episode 1 direction:
 
-1. Placeholder C4Sight logo intro
-2. Chalk title write-on: `What is AI actually doing?`
-3. Diagram reveal: `Input -> Pattern Matching -> Useful Output`
-4. Bottom caption: `AI is not magic. It's software that predicts useful patterns from data.`
+`Is AI actually magic, or are we just bad at understanding it?`
+
+Target length: 6-8 minutes.
 
 ## Commands
 
 ```bash
 npm install
 npm run start
-npm run render:preview
-npm run render
-npm run render:stylelab
-npm run render:teaching-beat
-npm run render:teaching-beat-v2
-npm run render:magic-hook-burst
-npm run render:episode01-cold-open
-npm run render:episode01-cold-open-v2
-npm run render:episode01-animatic
+npm run c4sight:qa
 npm run assets:scan
+npm run c4sight:qa:assets
+npm run c4sight:qa:design-system
+npm run c4sight:qa:gates
+npm run typecheck
+npm run render:external-design-system-preview
 npm run render:asset-readiness-preview
 ```
 
 `npm run start` opens Remotion Studio.
 
+`npm run c4sight:qa` is the master production guard. It runs the asset scan, external design-system package check, TypeScript check, asset validation, and production gate check, then writes:
+
+`docs/generated/C4Sight-Production-QA-Report.md`
+
+This command may exit non-zero while the project is intentionally blocked. That is expected when Gate 4 styleframes or Gate 5 required assets are missing. A blocked QA result means Codex must not continue into production animation.
+
 Run `npm run assets:scan` after adding or removing files in `public/c4sight/assets/`. The scan updates Remotion's generated readiness map.
 
-`npm run render` exports:
+`npm run c4sight:qa:assets` checks manifest paths, required/optional asset readiness, duplicate IDs, duplicate file paths, empty folders, extension mismatches, and folder structure.
+
+`npm run c4sight:qa:design-system` checks the local `@c4sight/design-system` package, runs its build script if present, and verifies the Wizard, Host, and `C4SIGHT_PALETTE` exports.
+
+`npm run c4sight:qa:gates` reads the production gates, manifest, and generated asset availability map. It reports the current Gate 1-8 status and blocks animation until Gate 4 and Gate 5 pass.
+
+## Main Compositions
+
+- `C4SightAssetReadinessPreview`
+- `C4SightEpisode01-Animatic`
+- `C4SightDesignSystemPreview`
+- `C4SightDesignSystemPreviewV2`
+
+Older prototype compositions remain in the repo as historical tests, not locked production language.
+
+## Asset Intake
+
+Asset root:
 
 ```text
-out/c4sight-motion-test.mp4
-```
-
-## Project Structure
-
-```text
-public/brand/
-  c4sight-placeholder.svg     Placeholder logo asset
-
 public/c4sight/assets/
-  characters/mascot/          Real mascot pose exports
-  characters/alien-wizard/    Real alien wizard gag exports
-  props/                      Designed prop SVGs
-  icons/                      Reusable icon SVGs
-  scene-keyframes/            Full-frame PNG keyframes
-  textures/                   Blackboard and chalk textures
-  cards/                      Task and capability card SVGs
-  effects/                    Poofs, sparks, wipes, highlights
-
-scripts/
-  update-c4sight-asset-readiness.mjs
-
-src/data/
-  brand.ts                    C4Sight brand settings
-  motionTest.ts               Scene data for this prototype
-
-src/components/
-  BlackboardBackground.tsx    Chalkboard texture and frame
-  ChalkText.tsx               Reusable write-on chalk text
-  ChalkDiagram.tsx            Reusable boxes and arrows diagram
-  ChalkShapes.tsx             Controlled chalk line, box, arrow, circle
-  ChalkAnnotations.tsx        Underlines, highlights, notes, formulas, checks
-  ChalkTeachingIcons.tsx      Chalk metaphor icons and teaching cards
-  ChalkCreativeBurst.tsx      Reusable metaphor burst gags and transitions
-  ChalkColdOpenElements.tsx   Cold-open cards, notes, captions, and model visuals
-  C4SightCharacterSystem.tsx  Reusable C4Sight character, prop, reaction, and icon wrappers
-  C4SightSceneLayouts.tsx     Production scene archetype layout helpers
-  Caption.tsx                 Bottom subtitle/caption treatment
-  ChalkFilters.tsx            Shared chalk roughness filter
-
-src/layout/
-  blackboardLayout.ts         Safe margins and named board zones
-  c4sightSceneGrammar.ts      C4Sight production-safe zones and scene grammar constants
-
-src/scenes/
-  LogoIntroScene.tsx          Placeholder intro scene
-  ChalkDiagramScene.tsx       Title plus diagram scene
-
-src/video/
-  C4SightVideo.tsx            Video renderer that maps data to scenes
-  C4SightAssetReadinessPreview.tsx
-
-src/design-system/
-  c4sightAssetManifest.ts     Source of truth for required production assets
-  c4sightAssetAvailability.generated.ts
+  main-world/
+  blackboard-mode/
+  interface-mode/
+  human-judgement-mode/
+  recurring-devices/
+  host/
+  transitions/
+  audio-identity/
+  characters/
+  props/
+  icons/
+  cards/
+  effects/
+  scene-keyframes/
+  textures/
 ```
 
-## Asset Intake Workflow
+Manifest:
+
+`src/design-system/c4sightAssetManifest.ts`
+
+Workflow:
 
 1. Export approved assets from Figma, Canva, or another design tool.
-2. Place each file at the exact path listed in `src/design-system/c4sightAssetManifest.ts`.
+2. Place each file at the exact path listed in the manifest.
 3. Run `npm run assets:scan`.
-4. Render `C4SightAssetReadinessPreview`.
-5. Review `out/c4sight-asset-readiness-contact-sheet.png`.
-6. Only resume Episode 1 animation once the required asset readiness score is production-ready.
+4. Render or inspect `C4SightAssetReadinessPreview`.
+5. Do not proceed to episode animation while required assets are missing.
 
-The design-system components now prefer manifest assets. If an asset exists, Remotion renders it. If it is missing, Remotion renders a clearly labelled missing placeholder.
+## Design System
 
-## Creating Future Videos
+Core files:
 
-The production workflow is now foundation-first:
-
-1. Write the voiceover and lesson promise.
-2. Build a rough animatic using approved scene archetypes.
-3. Review pacing with contact sheets and QA stills.
-4. Lock shot order, holds, and humour beats.
-5. Polish only after the animatic works.
-6. Reuse C4Sight character poses, props, icons, and layout helpers before inventing new scene-specific motion.
-
-Use `docs/C4Sight-Animation-Bible.md` as the source of truth for pacing, stillness, character acting, visual humour, and banned behaviours.
-
-Start by copying `src/data/motionTest.ts` and changing the exported video definition:
-
-- `id`: Remotion composition ID
-- `title`: internal video title
-- `durationSeconds`: total runtime
-- `scenes`: scene timeline and content
-- `captions`: subtitle/caption cue list
-
-The current renderer expects scene objects with `start` and `duration` in seconds. Reusable components handle the animation timing inside each scene.
-
-Example scene shape:
-
-```ts
-{
-  id: 'ai-diagram',
-  type: 'chalkDiagram',
-  start: 3.25,
-  duration: 14.75,
-  title: 'What is AI actually doing?',
-  titleWriteStart: 0.25,
-  titleWriteDuration: 2.4,
-  diagramStart: 4,
-  diagram: {
-    nodes: [
-      {id: 'input', label: 'Input', x: 270, y: 560, width: 320, height: 120},
-    ],
-    arrows: [
-      {id: 'input-to-output', from: 'input', to: 'output'},
-    ],
-  },
-}
+```text
+packages/c4sight-design-system/
+src/design-system/c4sightTokens.ts
+src/design-system/c4sightAssetManifest.ts
+src/design-system/external/
+src/design-system/characters/
+src/design-system/props/
+src/design-system/scenes/
+src/design-system/animation/
 ```
 
-## Brand Assets
+The design system is an implementation layer. It does not define the creative direction. It maps the Show Bible and approved assets into Remotion.
 
-Final logo files should live in `public/brand`.
+Preview the imported Figma-generated package with:
 
-The prototype uses:
-
-```ts
-logoAsset: 'brand/c4sight-placeholder.svg'
+```bash
+npm run render:external-design-system-preview
 ```
 
-When final C4/C4Sight logo artwork is available, replace that value in `src/data/brand.ts` or point individual intro scenes to a different file. The future `C4 -> Studios -> Sight` logo animation should be added as a new intro scene without changing the video data model.
+To update the package in future, replace `packages/c4sight-design-system/`, run `npm --prefix packages/c4sight-design-system run build`, then run the root `npm run typecheck`.
 
-## Design Direction
+## Historical Prototypes
 
-The visual system is intentionally restrained:
-
-- dark chalkboard texture
-- warm chalk text
-- simple hand-drawn boxes and arrows
-- readable, calm pacing
-- no neon, cyberpunk, or glossy tech styling
+The repo still contains earlier blackboard/chalk prototype components and videos. They are useful technical references for Remotion timing, contact sheets, and QA, but they are not the current C4Sight show direction.

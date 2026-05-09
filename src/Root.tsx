@@ -42,6 +42,10 @@ import {
   C4SightAssetReadinessPreview,
   c4SightAssetReadinessPreviewDurationSeconds,
 } from './video/C4SightAssetReadinessPreview';
+import {
+  C4SightExternalDesignSystemPreview,
+  c4SightExternalDesignSystemPreviewDurationSeconds,
+} from './video/C4SightExternalDesignSystemPreview';
 import {secondsToFrames} from './lib/timing';
 import {videoLayout} from './layout/blackboardLayout';
 import './styles.css';
@@ -178,6 +182,17 @@ export const RemotionRoot = () => {
         component={C4SightAssetReadinessPreview}
         durationInFrames={secondsToFrames(
           c4SightAssetReadinessPreviewDurationSeconds,
+          videoLayout.fps,
+        )}
+        fps={videoLayout.fps}
+        width={videoLayout.width}
+        height={videoLayout.height}
+      />
+      <Composition
+        id="C4SightExternalDesignSystemPreview"
+        component={C4SightExternalDesignSystemPreview}
+        durationInFrames={secondsToFrames(
+          c4SightExternalDesignSystemPreviewDurationSeconds,
           videoLayout.fps,
         )}
         fps={videoLayout.fps}

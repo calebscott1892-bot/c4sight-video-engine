@@ -1,0 +1,263 @@
+#!/usr/bin/env node
+
+import {spawnSync} from 'node:child_process';
+import {writeFileSync} from 'node:fs';
+import {join} from 'node:path';
+import {
+  ensureDirectory,
+  formatList,
+  markdownTable,
+  repoRoot,
+} from './c4sight-qa-utils.mjs';
+
+const runCommand = (label, command, args) => {
+  const startedAt = new Date().toISOString();
+  const result = spawnSync(command, args, {
+    cwd: repoRoot,
+    encoding: 'utf8',
+  });
+
+  return {
+    label,
+    command: [command, ...args].join(' '),
+    startedAt,
+    exitCode: result.status ?? 1,
+    ok: result.status === 0,
+    stdout: result.stdout.trim(),
+    stderr: result.stderr.trim(),
+  };
+};
+
+const runJsonScript = (label, scriptPath) => {
+  const commandResult = runCommand(label, 'node', [scriptPath, '--json']);
+  let data = null;
+  let parseError = null;
+
+  try {
+    data = JSON.parse(commandResult.stdout);
+  } catch (error) {
+    parseError = error instanceof Error ? error.message : String(error);
+  }
+
+  return {
+    ...commandResult,
+    ok: commandResult.ok && !parseError,
+    data,
+    parseError,
+  };
+};
+
+const timestamp = new Date().toISOString();
+
+const assetScan = runCommand('Asset scan', 'node', [
+  'scripts/update-c4sight-asset-readiness.mjs',
+]);
+const designSystem = runJsonScript(
+  'Design-system package check',
+  'scripts/check-c4sight-design-system-package.mjs',
+);
+const typecheck = runCommand('Typecheck', 'npm', ['run', 'typecheck']);
+const assetValidation = runJsonScript(
+  'Asset validation',
+  'scripts/validate-c4sight-assets.mjs',
+);
+const gates = runJsonScript(
+  'Production gate check',
+  'scripts/check-c4sight-production-gates.mjs',
+);
+
+const commandResults = [
+  assetScan,
+  designSystem,
+  typecheck,
+  assetValidation,
+  gates,
+];
+
+const assetSummary = assetValidation.data?.summary;
+const gateData = gates.data;
+const designData = designSystem.data;
+
+const stalePlaceholderWarnings = [];
+
+if ((assetSummary?.requiredMissing ?? 0) > 0) {
+  stalePlaceholderWarnings.push(
+    `${assetSummary.requiredMissing} required manifest assets are missing; any scene using them would need labelled fallbacks/placeholders.`,
+  );
+}
+
+if (designData?.ok) {
+  stalePlaceholderWarnings.push(
+    'External Wizard/Host package imports are available; external fallback boxes should not appear unless the package regresses.',
+  );
+} else {
+  stalePlaceholderWarnings.push(
+    'External design-system package is not healthy; Wizard/Host adapters may show fallback placeholders.',
+  );
+}
+
+const hardCommandFailures = commandResults.filter((result) => !result.ok);
+const productionBlocked = gateData?.productionBlocked === true;
+
+const blockers = [
+  ...hardCommandFailures.map(
+    (result) =>
+      `${result.label} failed while running \`${result.command}\`${
+        result.parseError ? ` (${result.parseError})` : ''
+      }.`,
+  ),
+  ...(gateData?.animationBlockedReason ? [gateData.animationBlockedReason] : []),
+  ...((assetValidation.data?.requiredMissing ?? []).length > 0
+    ? [
+        `${assetValidation.data.requiredMissing.length} required production assets are missing from public/c4sight/assets.`,
+      ]
+    : []),
+  ...((assetValidation.data?.episode1Missing ?? []).length > 0
+    ? [
+        `${assetValidation.data.episode1Missing.length} Episode 1 minimum assets are missing.`,
+      ]
+    : []),
+];
+
+const nextRecommendedAction = productionBlocked
+  ? 'Wait for approved Character System v2/styleframes, export real assets into the manifest paths, run `npm run c4sight:assets`, then rerun `npm run c4sight:qa` before any animation work resumes.'
+  : 'Review downstream gates and only proceed to animatic/final animation if Gate 6+ requirements are also approved.';
+
+const reportPath = join(
+  repoRoot,
+  'docs/generated/C4Sight-Production-QA-Report.md',
+);
+
+ensureDirectory(join(repoRoot, 'docs/generated'));
+
+const commandTable = markdownTable(
+  ['Check', 'Command', 'Exit', 'Result'],
+  commandResults.map((result) => [
+    result.label,
+    `\`${result.command}\``,
+    String(result.exitCode),
+    result.ok ? 'Pass' : 'Fail',
+  ]),
+);
+
+const gateTable = markdownTable(
+  ['Gate', 'Status', 'Evidence', 'Next Action'],
+  (gateData?.gates ?? []).map((gate) => [
+    `Gate ${gate.id} - ${gate.name}`,
+    gate.status,
+    gate.evidence,
+    gate.nextAction,
+  ]),
+);
+
+const designTable = markdownTable(
+  ['Check', 'Result', 'Detail'],
+  (designData?.checks ?? []).map((check) => [
+    check.name,
+    check.pass ? 'Pass' : 'Fail',
+    check.detail,
+  ]),
+);
+
+const missingRequiredAssets =
+  assetValidation.data?.requiredMissing?.map(
+    (asset) => `${asset.id} - ${asset.filePath}`,
+  ) ?? [];
+const missingStyleframes =
+  gateData?.missingStyleframes?.map(
+    (asset) => `${asset.id} - ${asset.filePath}`,
+  ) ?? [];
+
+const report = `# C4Sight Production QA Report
+
+Generated: ${timestamp}
+
+This report is generated by \`npm run c4sight:qa\`.
+
+## Production Status
+
+${productionBlocked ? 'BLOCKED' : 'NOT BLOCKED BY GATE 4/5'}
+
+${gateData?.animationBlockedReason ?? 'Gate status unavailable.'}
+
+## Command Results
+
+${commandTable}
+
+## Asset Readiness Summary
+
+- Total manifest assets: ${assetSummary?.total ?? 'Unavailable'}
+- Ready assets: ${assetSummary?.ready ?? 'Unavailable'}
+- Missing assets: ${assetSummary?.missing ?? 'Unavailable'}
+- Required assets ready: ${assetSummary?.requiredReady ?? 'Unavailable'}/${assetSummary?.required ?? 'Unavailable'}
+- Required assets missing: ${assetSummary?.requiredMissing ?? 'Unavailable'}
+- Episode 1 minimum assets ready: ${assetSummary?.episode1Ready ?? 'Unavailable'}/${assetSummary?.episode1Minimum ?? 'Unavailable'}
+- Episode 1 minimum assets missing: ${assetSummary?.episode1Missing ?? 'Unavailable'}
+
+### Missing By Category
+
+\`\`\`json
+${JSON.stringify(assetSummary?.missingByCategory ?? {}, null, 2)}
+\`\`\`
+
+## Production Gate Summary
+
+${gateTable}
+
+## Design-System Package Status
+
+${designTable}
+
+Build check: ${designData?.buildResult?.pass ? 'Pass' : 'Fail'}
+
+Import check: ${designData?.importResult?.pass ? 'Pass' : 'Fail'}
+
+## Missing Styleframes
+
+${formatList(missingStyleframes)}
+
+## Missing Required Assets
+
+${formatList(missingRequiredAssets)}
+
+## Placeholder / Fallback Warnings
+
+${formatList(stalePlaceholderWarnings)}
+
+## Blockers
+
+${formatList(blockers)}
+
+## Next Recommended Action
+
+${nextRecommendedAction}
+
+## Limitations
+
+- Automated image dimension checks are not enforced yet.
+- Gate 3, Gate 6, Gate 7, and Gate 8 approval checks currently look for explicit approval docs/render outputs; they do not infer approval from old prototype renders.
+`;
+
+writeFileSync(reportPath, report);
+
+console.log('C4Sight Production QA');
+console.log('=====================');
+console.log(`Report: ${reportPath}`);
+console.log(`Production status: ${productionBlocked ? 'BLOCKED' : 'NOT BLOCKED'}`);
+console.log(gateData?.animationBlockedReason ?? 'Gate status unavailable.');
+console.log('');
+console.log(
+  `Assets ready: ${assetSummary?.ready ?? '?'}/${assetSummary?.total ?? '?'} total, ${assetSummary?.requiredReady ?? '?'}/${assetSummary?.required ?? '?'} required, ${assetSummary?.episode1Ready ?? '?'}/${assetSummary?.episode1Minimum ?? '?'} Episode 1 minimum`,
+);
+console.log(
+  `Design-system package: ${designData?.ok ? 'PASS' : 'FAIL'}; Typecheck: ${
+    typecheck.ok ? 'PASS' : 'FAIL'
+  }`,
+);
+console.log('');
+console.log('Blockers:');
+console.log(formatList(blockers));
+
+if (hardCommandFailures.length > 0 || productionBlocked) {
+  process.exitCode = 1;
+}
