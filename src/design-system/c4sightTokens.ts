@@ -1,11 +1,16 @@
 import {videoLayout} from '../layout/blackboardLayout';
 
 const showBiblePalette = {
-  slate: '#1A1F1C',
+  void: '#0F1011',
+  background: '#0F1011',
+  surface: '#1A1B1E',
+  voidSurface: '#1A1B1E',
+  wizardPurple: '#B49FCC',
+  hostWhite: '#F0EDE4',
   chalk: '#F4EDE0',
-  paper: '#EFE7D6',
   verifyRed: '#D7382C',
-  wizardLavender: '#B9A8C7',
+  thesisTeal: '#1A6B5C',
+  paper: '#EFE7D6',
   ink: '#221F1F',
 } as const;
 
@@ -36,67 +41,53 @@ export const c4sightTokens = {
   },
   palette: showBiblePalette,
   mainWorld: {
-    background: showBiblePalette.paper,
-    foreground: showBiblePalette.ink,
-    surface: '#F7F0E2',
-    line: showBiblePalette.ink,
-    accent: showBiblePalette.wizardLavender,
+    background: showBiblePalette.background,
+    foreground: showBiblePalette.hostWhite,
+    surface: showBiblePalette.surface,
+    line: showBiblePalette.chalk,
+    accent: showBiblePalette.wizardPurple,
   },
   blackboardMode: {
-    background: showBiblePalette.slate,
+    background: showBiblePalette.surface,
     foreground: showBiblePalette.chalk,
-    surface: '#252B27',
+    surface: showBiblePalette.surface,
     line: showBiblePalette.chalk,
-    dust: 'rgba(244, 237, 224, 0.16)',
+    dust: showBiblePalette.chalk,
   },
   interfaceMode: {
-    background: showBiblePalette.paper,
-    foreground: showBiblePalette.ink,
-    surface: '#FFF9EA',
-    line: 'rgba(34, 31, 31, 0.72)',
+    background: showBiblePalette.background,
+    foreground: showBiblePalette.chalk,
+    surface: showBiblePalette.surface,
+    line: showBiblePalette.chalk,
     accent: showBiblePalette.verifyRed,
   },
   humanJudgementMode: {
-    background: '#E8DCC7',
-    foreground: showBiblePalette.ink,
-    surface: showBiblePalette.paper,
-    line: 'rgba(34, 31, 31, 0.66)',
+    background: showBiblePalette.thesisTeal,
+    foreground: showBiblePalette.hostWhite,
+    surface: showBiblePalette.thesisTeal,
+    line: showBiblePalette.hostWhite,
     accent: showBiblePalette.verifyRed,
   },
   verifyStamp: {
     fill: showBiblePalette.verifyRed,
     stroke: showBiblePalette.verifyRed,
-    text: showBiblePalette.paper,
+    text: showBiblePalette.hostWhite,
   },
   wizard: {
-    fill: showBiblePalette.wizardLavender,
+    fill: showBiblePalette.wizardPurple,
     stroke: showBiblePalette.ink,
     chalkStroke: showBiblePalette.chalk,
   },
   colors: {
-    slate: showBiblePalette.slate,
+    background: showBiblePalette.background,
+    surface: showBiblePalette.surface,
+    wizardPurple: showBiblePalette.wizardPurple,
+    hostWhite: showBiblePalette.hostWhite,
     chalk: showBiblePalette.chalk,
-    paper: showBiblePalette.paper,
     verifyRed: showBiblePalette.verifyRed,
-    wizardLavender: showBiblePalette.wizardLavender,
+    thesisTeal: showBiblePalette.thesisTeal,
+    paper: showBiblePalette.paper,
     ink: showBiblePalette.ink,
-    board: showBiblePalette.slate,
-    boardPanel: '#252B27',
-    boardDeep: '#101310',
-    boardGuide: 'rgba(244, 237, 224, 0.1)',
-    boardDust: 'rgba(244, 237, 224, 0.08)',
-    chalkHeavy: '#FFF8E8',
-    chalkDim: 'rgba(244, 237, 224, 0.68)',
-    chalkGhost: 'rgba(244, 237, 224, 0.34)',
-    chalkDust: 'rgba(244, 237, 224, 0.18)',
-    accents: {
-      verifyRed: showBiblePalette.verifyRed,
-      wizardLavender: showBiblePalette.wizardLavender,
-      paper: showBiblePalette.paper,
-      ink: showBiblePalette.ink,
-      mutedSage: '#8EA18E',
-      mutedGold: '#C6A760',
-    },
   },
   lineWeights: {
     secondary: 1.75,
@@ -106,11 +97,11 @@ export const c4sightTokens = {
     emphasis: 3.5,
   },
   typography: {
-    titleFamily:
-      '"Avenir Next", "Bradley Hand", "Chalkboard SE", "Marker Felt", sans-serif',
+    titleFamily: '"Fraunces", "Playfair Display", Georgia, serif',
     bodyFamily:
-      '"Avenir Next", "Bradley Hand", "Chalkboard SE", "Marker Felt", sans-serif',
-    captionFamily: '"Avenir Next", Inter, system-ui, sans-serif',
+      '"DM Sans", "Plus Jakarta Sans", Inter, system-ui, sans-serif',
+    captionFamily: '"DM Sans", Inter, system-ui, sans-serif',
+    chalkHandFamily: '"Caveat", "Patrick Hand", cursive',
     weights: {
       title: 800,
       body: 700,
@@ -163,6 +154,7 @@ export const c4sightTokens = {
   timing: {
     quick: 12,
     transition: 15,
+    ritual: 60,
     poseChange: 21,
     writeWord: 15,
     writeFast: 18,
@@ -182,4 +174,4 @@ export const c4sightTokens = {
 } as const;
 
 export type C4SightTokens = typeof c4sightTokens;
-export type C4SightAccent = keyof typeof c4sightTokens.colors.accents;
+export type C4SightAccent = 'verifyRed' | 'wizardPurple';

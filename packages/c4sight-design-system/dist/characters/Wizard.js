@@ -82,7 +82,7 @@ function Mouth({ expression, view }) {
         neutral: `M ${cx - 2.2} ${y} L ${cx + 2.2} ${y}`,
         sulking: `M ${cx - 2.4} ${y + 0.6} Q ${cx} ${y - 1.0} ${cx + 2.4} ${y + 0.6}`,
         panicked: `M ${cx - 2.4} ${y} Q ${cx} ${y + 2.4} ${cx + 2.4} ${y}`,
-        smug: `M ${cx - 3.0} ${y + 0.2} Q ${cx - 0.4} ${y - 1.6} ${cx + 3.0} ${y + 0.4}`,
+        smug: `M ${cx - 3.0} ${y + 0.2} Q ${cx - 0.4} ${y + 2.0} ${cx + 3.0} ${y + 0.4}`,
         disappointed: `M ${cx - 2.6} ${y + 0.4} Q ${cx} ${y - 0.6} ${cx + 2.6} ${y + 0.4}`,
         shrug: `M ${cx - 2.0} ${y} Q ${cx} ${y + 0.6} ${cx + 2.0} ${y}`,
     };

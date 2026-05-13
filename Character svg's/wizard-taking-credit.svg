@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="-32 -45 64 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Puffed chest -->
+  <path d="M -14 0 L -18 50 L 18 50 L 14 0 Z" fill="#B49FCC" />
+  <!-- Arms spread wide -->
+  <rect x="-26" y="-12" width="5" height="26" rx="2.5" fill="#B49FCC" transform="rotate(-50 -23 1)" />
+  <rect x="21" y="-12" width="5" height="26" rx="2.5" fill="#B49FCC" transform="rotate(50 23 1)" />
+  <!-- Head -->
+  <circle cx="0" cy="-8" r="11" fill="#B49FCC" />
+  <!-- Squint smug eyes -->
+  <path d="M -6.5 -8 Q -4 -9.5 -1.5 -8" stroke="#1A1520" stroke-width="1.2" fill="none" stroke-linecap="round" />
+  <path d="M 1.5 -8 Q 4 -9.5 6.5 -8" stroke="#1A1520" stroke-width="1.2" fill="none" stroke-linecap="round" />
+  <!-- Smirk -->
+  <path d="M -4 -3 Q 0 -5 4 -3" stroke="#1A1520" stroke-width="1.2" fill="none" stroke-linecap="round" />
+  <!-- Hat -->
+  <path d="M -14 -19 L 0 -42 L 14 -19 Z" fill="#2A2530" />
+  <path d="M 0 -31 L 0.8 -28.8 L 3 -28 L 0.8 -27.2 L 0 -25 L -0.8 -27.2 L -3 -28 L -0.8 -28.8 Z" fill="#FFFFFF" />
+  <circle cx="-6" cy="-24" r="1.2" fill="#FFFFFF" />
+  <circle cx="6" cy="-24" r="1.2" fill="#FFFFFF" />
+  <!-- Wand raised -->
+  <g transform="translate(30 -22) rotate(35)">
+    <rect x="-0.7" y="-14" width="1.4" height="16" fill="#1A1520" />
+    <rect x="-1.4" y="-16" width="2.8" height="2.8" fill="#FFFFFF" />
+  </g>
+</svg>

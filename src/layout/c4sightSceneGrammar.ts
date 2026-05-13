@@ -97,6 +97,25 @@ export const c4SceneGrammar = {
   },
 };
 
+export type C4SightVisualMode =
+  | 'mainWorld'
+  | 'blackboard'
+  | 'interfaceTool'
+  | 'humanJudgement';
+
+export type C4SightLegacyVisualMode =
+  | 'main_world'
+  | 'blackboard_mode'
+  | 'interface_mode'
+  | 'human_judgement_mode';
+
+export const c4SightVisualModeAliases = {
+  main_world: 'mainWorld',
+  blackboard_mode: 'blackboard',
+  interface_mode: 'interfaceTool',
+  human_judgement_mode: 'humanJudgement',
+} as const satisfies Record<C4SightLegacyVisualMode, C4SightVisualMode>;
+
 export type C4SceneArchetype =
   | 'centeredTeaching'
   | 'leftRightComparison'

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg viewBox="-32 -45 64 100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Body -->
+  <path d="M -12 0 L -18 50 L 18 50 L 12 0 Z" fill="#B49FCC" />
+  <!-- Arms hanging loose -->
+  <rect x="-19" y="2" width="5" height="26" rx="2.5" fill="#B49FCC" />
+  <rect x="14" y="2" width="5" height="26" rx="2.5" fill="#B49FCC" />
+  <!-- Head -->
+  <circle cx="0" cy="-8" r="11" fill="#B49FCC" />
+  <!-- Half-lidded eyes -->
+  <path d="M -7 -8 L -1 -8" stroke="#1A1520" stroke-width="1.2" stroke-linecap="round" />
+  <path d="M 1 -8 L 7 -8" stroke="#1A1520" stroke-width="1.2" stroke-linecap="round" />
+  <!-- Flat mouth -->
+  <path d="M -3 -3 L 3 -3" stroke="#1A1520" stroke-width="0.9" stroke-linecap="round" />
+  <!-- Hat -->
+  <path d="M -14 -19 L 0 -42 L 14 -19 Z" fill="#2A2530" />
+  <path d="M 0 -31 L 0.8 -28.8 L 3 -28 L 0.8 -27.2 L 0 -25 L -0.8 -27.2 L -3 -28 L -0.8 -28.8 Z" fill="#FFFFFF" />
+  <circle cx="-6" cy="-24" r="1.2" fill="#FFFFFF" />
+  <circle cx="6" cy="-24" r="1.2" fill="#FFFFFF" />
+  <!-- Wand -->
+  <g transform="translate(18 26) rotate(0)">
+    <rect x="-0.6" y="-12" width="1.2" height="14" fill="#1A1520" />
+    <rect x="-1" y="-13.5" width="2" height="2" fill="#FFFFFF" />
+  </g>
+</svg>

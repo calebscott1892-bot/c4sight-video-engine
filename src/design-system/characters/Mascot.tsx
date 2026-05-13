@@ -2,6 +2,11 @@ import type {CSSProperties, ReactNode} from 'react';
 import {ManifestAsset} from '../assets';
 import type {C4SightAssetId} from '../c4sightAssetManifest';
 import {c4sightTokens} from '../c4sightTokens';
+import {
+  C4SightWizard,
+  type C4SightWizardExpression,
+  type C4SightWizardPose,
+} from '../external/C4SightWizard';
 
 export type C4SightMascotPose =
   | 'neutral'
@@ -25,6 +30,7 @@ type MascotProps = {
   scale?: number;
   rotation?: number;
   prop?: ReactNode;
+  useSVG?: boolean;
   className?: string;
   style?: CSSProperties;
 };
@@ -43,6 +49,26 @@ const poseAssetIds: Record<C4SightMascotPose, C4SightAssetId> = {
   holdingProp: 'character.mascot.holding-prop',
 };
 
+const poseWizardProps: Record<
+  C4SightMascotPose,
+  {
+    expression: C4SightWizardExpression;
+    pose?: Exclude<C4SightWizardPose, null>;
+  }
+> = {
+  neutral: {expression: 'neutral'},
+  confident: {expression: 'smug', pose: 'credit'},
+  confused: {expression: 'panicked'},
+  sad: {expression: 'sulking'},
+  overwhelmed: {expression: 'panicked'},
+  excited: {expression: 'smug'},
+  walkingAway: {expression: 'disappointed', pose: 'debunked'},
+  runningBack: {expression: 'neutral'},
+  presenting: {expression: 'neutral', pose: 'credit'},
+  pointing: {expression: 'smug', pose: 'credit'},
+  holdingProp: {expression: 'panicked', pose: 'stealing'},
+};
+
 export const C4SightMascot = ({
   pose = 'neutral',
   x,
@@ -50,11 +76,14 @@ export const C4SightMascot = ({
   scale = 1,
   rotation = 0,
   prop,
+  useSVG = true,
   className,
   style,
 }: MascotProps) => {
   const width = c4sightTokens.assetDimensions.mascot.width * scale;
   const height = c4sightTokens.assetDimensions.mascot.height * scale;
+  const wizardSize = Math.min(width, (height * 64) / 92);
+  const wizardProps = poseWizardProps[pose];
 
   return (
     <div
@@ -70,12 +99,27 @@ export const C4SightMascot = ({
         ...style,
       }}
     >
-      <ManifestAsset
-        assetId={poseAssetIds[pose]}
-        width={width}
-        height={height}
-        placeholderLabel={`Mascot: ${pose}`}
-      />
+      {useSVG ? (
+        <C4SightWizard
+          expression={wizardProps.expression}
+          pose={wizardProps.pose ?? null}
+          size={wizardSize}
+          style={{
+            width,
+            height,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        />
+      ) : (
+        <ManifestAsset
+          assetId={poseAssetIds[pose]}
+          width={width}
+          height={height}
+          placeholderLabel={`Mascot: ${pose}`}
+        />
+      )}
       {pose === 'holdingProp' && prop ? (
         <div
           className="c4-ds-mascot__held-prop"

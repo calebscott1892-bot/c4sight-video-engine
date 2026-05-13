@@ -1,15 +1,7 @@
-import type {CSSProperties, ComponentType} from 'react';
-import {
-  Host as ImportedHost,
-  type HostExpression as ImportedHostExpression,
-  type HostPose as ImportedHostPose,
-  type HostProps as ImportedHostProps,
-  type HostVariant as ImportedHostVariant,
-  type HostView as ImportedHostView,
-} from '@c4sight/design-system';
-import {externalC4SightPalette} from './C4SightWizard';
+import type {CSSProperties} from 'react';
+import {HostFigure} from '../ep01Assets';
 
-export const externalC4SightHostAvailable = Boolean(ImportedHost);
+export const externalC4SightHostAvailable = true;
 
 export const c4SightHostViews = ['front', 'blackboard', 'desk'] as const;
 
@@ -36,8 +28,8 @@ export type C4SightHostPose = (typeof c4SightHostPoses)[number] | null;
 export type C4SightHostVariant = (typeof c4SightHostVariants)[number];
 
 export type C4SightHostProps = {
-  view?: C4SightHostView | string;
-  expression?: C4SightHostExpression | string;
+  view?: C4SightHostView | 'full' | 'waist' | 'head' | string;
+  expression?: C4SightHostExpression | 'raised' | 'surprised' | string;
   pose?: C4SightHostPose | 'none' | string;
   variant?: C4SightHostVariant | string;
   size?: number;
@@ -48,77 +40,46 @@ export type C4SightHostProps = {
   style?: CSSProperties;
 };
 
-const normalizeChoice = <T extends readonly string[]>(
-  value: string | undefined,
-  allowed: T,
-  fallback: T[number],
-): T[number] => {
-  return allowed.includes(value ?? '') ? (value as T[number]) : fallback;
+type HostFigureView = 'full' | 'waist' | 'head';
+type HostFigureExpression =
+  | 'dry'
+  | 'browraise'
+  | 'smile'
+  | 'surprised'
+  | 'open';
+
+const expressionMap: Record<string, HostFigureExpression> = {
+  dry: 'dry',
+  raised: 'browraise',
+  'raised-brow': 'browraise',
+  smile: 'smile',
+  surprised: 'surprised',
+  curious: 'browraise',
+  exasperated: 'dry',
+  open: 'open',
 };
 
-const normalizePose = (pose: C4SightHostProps['pose']): C4SightHostPose => {
-  if (pose === null || pose === undefined || pose === 'none') {
-    return null;
+const normalizeView = (view: C4SightHostProps['view']): HostFigureView => {
+  if (view === 'waist' || view === 'head' || view === 'full') {
+    return view;
   }
 
-  return c4SightHostPoses.includes(pose as (typeof c4SightHostPoses)[number])
-    ? (pose as C4SightHostPose)
-    : null;
+  return 'full';
 };
 
-const MissingExternalHost = ({
-  size,
-  style,
-  className,
-}: {
-  size: number;
-  style?: CSSProperties;
-  className?: string;
-}) => (
-  <div
-    className={className}
-    style={{
-      width: size,
-      minHeight: size * 1.45,
-      border: `2px dashed ${externalC4SightPalette.RED}`,
-      background: externalC4SightPalette.PAPER,
-      color: externalC4SightPalette.INK,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      textAlign: 'center',
-      fontFamily: 'Avenir Next, Inter, system-ui, sans-serif',
-      fontSize: Math.max(12, Math.round(size * 0.05)),
-      padding: 12,
-      ...style,
-    }}
-  >
-    MISSING EXTERNAL HOST
-  </div>
-);
+const normalizeExpression = (
+  expression: C4SightHostProps['expression'],
+): HostFigureExpression => {
+  return expressionMap[expression ?? 'dry'] ?? 'dry';
+};
 
 export const C4SightHost = ({
-  view,
-  expression,
-  pose,
-  variant,
+  view = 'full',
+  expression = 'dry',
   size = 240,
-  glasses = false,
-  showChalk = false,
-  showNotebook = false,
   className,
   style,
 }: C4SightHostProps) => {
-  const HostComponent = ImportedHost as
-    | ComponentType<ImportedHostProps>
-    | undefined;
-
-  if (!HostComponent) {
-    return (
-      <MissingExternalHost className={className} size={size} style={style} />
-    );
-  }
-
   return (
     <span
       className={className}
@@ -129,30 +90,13 @@ export const C4SightHost = ({
         ...style,
       }}
     >
-      <HostComponent
-        view={
-          normalizeChoice(view, c4SightHostViews, 'front') as ImportedHostView
-        }
-        expression={
-          normalizeChoice(
-            expression,
-            c4SightHostExpressions,
-            'dry',
-          ) as ImportedHostExpression
-        }
-        pose={normalizePose(pose) as ImportedHostPose}
-        variant={
-          normalizeChoice(
-            variant,
-            c4SightHostVariants,
-            'a',
-          ) as ImportedHostVariant
-        }
-        size={size}
-        glasses={glasses}
-        showChalk={showChalk}
-        showNotebook={showNotebook}
+      <HostFigure
+        view={normalizeView(view)}
+        expression={normalizeExpression(expression)}
+        height={size}
       />
     </span>
   );
 };
+
+export default C4SightHost;

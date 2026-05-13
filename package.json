@@ -21,6 +21,7 @@
     "c4sight:qa:assets": "npm run assets:scan && node scripts/validate-c4sight-assets.mjs",
     "c4sight:qa:design-system": "node scripts/check-c4sight-design-system-package.mjs",
     "c4sight:qa:gates": "node scripts/check-c4sight-production-gates.mjs",
+    "c4sight:qa:episode01": "node scripts/check-episode01-plan.mjs",
     "assets:scan": "node scripts/update-c4sight-asset-readiness.mjs",
     "render:asset-readiness-preview": "npm run assets:scan && remotion render src/index.ts C4SightAssetReadinessPreview out/c4sight-asset-readiness-preview.mp4 --codec=h264",
     "render:preview": "remotion still src/index.ts C4SightMotionTest out/preview.png --frame=160",
@@ -41,6 +42,7 @@
   "dependencies": {
     "@c4sight/design-system": "file:packages/c4sight-design-system",
     "@remotion/cli": "latest",
+    "@remotion/google-fonts": "4.0.458",
     "react": "latest",
     "react-dom": "latest",
     "remotion": "latest"

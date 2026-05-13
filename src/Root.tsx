@@ -1,3 +1,7 @@
+import {loadFont as loadArchivo} from '@remotion/google-fonts/Archivo';
+import {loadFont as loadCaveat} from '@remotion/google-fonts/Caveat';
+import {loadFont as loadDMSans} from '@remotion/google-fonts/DMSans';
+import {loadFont as loadFraunces} from '@remotion/google-fonts/Fraunces';
 import {Composition} from 'remotion';
 import {motionTestVideo} from './data/motionTest';
 import {C4SightVideo} from './video/C4SightVideo';
@@ -19,9 +23,17 @@ import {
   magicHookBurstDurationSeconds,
 } from './video/C4SightMagicHookBurst';
 import {
+  C4SightChannelManifesto,
+  channelManifestoDurationSeconds,
+} from './video/C4SightChannelManifesto';
+import {
   C4SightEpisode01ColdOpen,
   episode01ColdOpenDurationSeconds,
 } from './video/C4SightEpisode01ColdOpen';
+import {
+  C4SightEpisode01,
+  episode01DurationSeconds,
+} from './video/C4SightEpisode01';
 import {
   C4SightEpisode01ColdOpenV2,
   episode01ColdOpenV2DurationSeconds,
@@ -49,6 +61,15 @@ import {
 import {secondsToFrames} from './lib/timing';
 import {videoLayout} from './layout/blackboardLayout';
 import './styles.css';
+
+loadFraunces('normal', {weights: ['800'], subsets: ['latin']});
+loadDMSans('normal', {weights: ['600', '700'], subsets: ['latin']});
+loadArchivo('normal', {weights: ['400', '700', '900'], subsets: ['latin']});
+loadArchivo('italic', {weights: ['500', '900'], subsets: ['latin']});
+loadCaveat('normal', {
+  weights: ['400', '500', '600', '700'],
+  subsets: ['latin'],
+});
 
 export const RemotionRoot = () => {
   return (
@@ -123,10 +144,32 @@ export const RemotionRoot = () => {
         height={videoLayout.height}
       />
       <Composition
+        id="ChannelManifesto"
+        component={C4SightChannelManifesto}
+        durationInFrames={secondsToFrames(
+          channelManifestoDurationSeconds,
+          videoLayout.fps,
+        )}
+        fps={videoLayout.fps}
+        width={videoLayout.width}
+        height={videoLayout.height}
+      />
+      <Composition
         id="C4SightEpisode01ColdOpen"
         component={C4SightEpisode01ColdOpen}
         durationInFrames={secondsToFrames(
           episode01ColdOpenDurationSeconds,
+          videoLayout.fps,
+        )}
+        fps={videoLayout.fps}
+        width={videoLayout.width}
+        height={videoLayout.height}
+      />
+      <Composition
+        id="Episode01"
+        component={C4SightEpisode01}
+        durationInFrames={secondsToFrames(
+          episode01DurationSeconds,
           videoLayout.fps,
         )}
         fps={videoLayout.fps}
